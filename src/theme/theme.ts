@@ -28,7 +28,28 @@ export const theme = {
       light: "#f8f9fa",
       dark: "#2d3748",
     },
-
+    gray: {
+      50: "#f9fafb", // Light mode subtle bg
+      100: "#f3f4f6",
+      200: "#e5e7eb", // Light border
+      300: "#d1d5db",
+      400: "#9ca3af",
+      500: "#6b7280",
+      600: "#4b5563",
+      700: "#374151", // Dark border
+      800: "#1f2937", // Dark card bg
+      900: "#111827",
+    },
+    blue: {
+      300: "#93c5fd", // Dark mode accent
+      500: "#3b82f6", // Base accent
+    },
+    green: {
+      500: "#10b981", // Success (check icons)
+    },
+    yellow: {
+      500: "#f59e0b", // Bonus features
+    },
     gradients: {
       blue: "linear-gradient(90deg, #087ea4 0%, #149eca 100%)",
       subtleDark: "linear-gradient(to bottom right, #23272f 0%, #1a1d23 100%)",
@@ -76,6 +97,14 @@ export const theme = {
         color: "codeText",
       },
     },
+    Card: {
+      baseStyle: {
+        bg: "bg.card.light",
+        borderWidth: "1px",
+        borderColor: "border.light",
+        _dark: { bg: "bg.card.dark", borderColor: "border.dark" },
+      },
+    },
   },
 
   layerStyles: {
@@ -112,11 +141,10 @@ export const theme = {
       "& .keyword": { color: { light: "#CF222E", dark: "#FF7B72" } },
       "& .function": { color: { light: "#8250DF", dark: "#D2A8FF" } },
       "& .string": { color: { light: "#0A3069", dark: "#A5D6FF" } },
-      "& .comment": { 
+      "& .comment": {
         color: { light: "#656D76", dark: "#8B949E" },
-        fontStyle: "italic" 
+        fontStyle: "italic",
       },
-   
     },
   },
 };

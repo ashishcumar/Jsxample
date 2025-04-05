@@ -39,8 +39,9 @@ const CodeBlock = (props: IProps) => {
           bg={colorMode === "light" ? "#f6f8fa" : "#1e293b"}
           border="1px solid"
           borderColor={colorMode === "light" ? "#e1e4e8" : "#30363d"}
-          my={4}
+          marginTop={"8px"}
           overflow="hidden"
+          transition={"height 0.3s ease"}
         >
           <Box
             dangerouslySetInnerHTML={{ __html: highlightedCode }}
@@ -84,8 +85,9 @@ const CodeBlock = (props: IProps) => {
           my={4}
           overflow="hidden"
           p={4}
+          minH={"400px"}
         >
-          <SkeletonText noOfLines={1} spacing="3" skeletonHeight="4" />
+          <SkeletonText noOfLines={1} spacing="3" skeletonHeight="300px" />
           <Skeleton
             position="absolute"
             right={3}

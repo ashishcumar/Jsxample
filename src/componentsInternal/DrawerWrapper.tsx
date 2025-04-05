@@ -10,17 +10,31 @@ import {
   Heading,
   IconButton,
   Text,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import NavContent from "./NavContent";
 import React from "react";
 
-const DrawerWrapper = ({ children }: { children: React.ReactNode }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface IProps {
+  children: React.ReactNode;
+  isScrollable: boolean;
+}
 
+const DrawerWrapper = (props: IProps) => {
+  const { children, isScrollable } = props;
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const borderColor = useColorModeValue("gray.200", "gray.700");
+  console.log({isScrollable})
   return (
-    <Flex minH="100vh" bg="gray.50" _dark={{ bg: "gray.900" }}>
+    <Flex
+      minH="100vh"
+      bg="gray.50"
+      _dark={{ bg: "gray.900" }}
+      borderTop={"1px solid"}
+      borderColor={borderColor}
+    >
       {/* Mobile Drawer */}
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
@@ -68,17 +82,13 @@ const DrawerWrapper = ({ children }: { children: React.ReactNode }) => {
           onClick={onOpen}
           aria-label="Open menu"
           mb={4}
-          // position={active ? "fixed" : "sticky"}
+          position={isScrollable ? "fixed" : "sticky"}
           top="12px"
           left="12px"
           zIndex="10"
           width={"fit-content"}
         />
-
-        {/* Inner scrollable content */}
         <Box
-          flex="1"
-          // overflowY={active ? "scroll" : "hidden"}
           px={{ base: 4, md: 8 }}
           py={4}
         >
