@@ -6,7 +6,7 @@ import { Landing } from "./componentsInternal/Landing";
 import ChallengeDetails from "./componentsInternal/ChallengeDetails";
 
 import Implementation from "./componentsInternal/Implementation";
-import promiseAllImplementation from "./components/jsQuestion/promiseAllImplementation";
+import executeNPromise from "./components/jsQuestion/executeNPromise";
 import Explanation from "./componentsInternal/Explanation";
 import BenchmarkCard from "./componentsInternal/Benchmarks";
 
@@ -51,18 +51,20 @@ function App() {
           overflow={isScrollable ? "scroll" : "hidden"}
         >
           <ChallengeDetails
-            description={promiseAllImplementation.description}
-            requirements={promiseAllImplementation.requirements}
-            title={promiseAllImplementation.title}
+            description={executeNPromise.description}
+            requirements={executeNPromise.requirements}
+            title={executeNPromise.title}
           />
           {/* <SolutionPreview /> */}
-          <Implementation question={promiseAllImplementation} />
-          {promiseAllImplementation.explanation?.length ? (
-            <Explanation explanationList={promiseAllImplementation.explanation} />
+          <Implementation question={executeNPromise} />
+          {executeNPromise.explanation?.length ? (
+            <Explanation
+              explanationList={executeNPromise.explanation}
+            />
           ) : null}
-          {promiseAllImplementation.benchmarks &&
-          Object.keys(promiseAllImplementation.benchmarks)?.length ? (
-            <BenchmarkCard data={promiseAllImplementation.benchmarks} />
+          {executeNPromise.benchmarks &&
+          Object.keys(executeNPromise.benchmarks)?.length ? (
+            <BenchmarkCard data={executeNPromise.benchmarks} />
           ) : null}
         </Box>
       </DrawerWrapper>

@@ -1,35 +1,180 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+// import { Box, Heading, Text } from "@chakra-ui/react";
+
+// const MarkdownRenderer = ({ text }: { text: string }) => {
+//   const lines = text.split("\n");
+
+//   return (
+//     <Box>
+//       {lines.map((line, i) => {
+//         if (line.startsWith("### ")) {
+//           return (
+//             <Heading key={i} size="md" mt={4} mb={2}>
+//               {line.replace("### ", "")}
+//             </Heading>
+//           );
+//         }
+//         if (line.startsWith("- **")) {
+//           const [label, value] = line.split(":");
+//           return (
+//             <Text key={i}>
+//               <Text as="span" fontWeight="bold">
+//                 {label.replace("- **", "").replace("**", "")}:{" "}
+//               </Text>
+//               {value}
+//             </Text>
+//           );
+//         }
+//         return <Text key={i}>{line}</Text>;
+//       })}
+//     </Box>
+//   );
+// };
+
+// export default MarkdownRenderer;
+
+import { Box, Heading, Text, UnorderedList, OrderedList, ListItem } from "@chakra-ui/react";
+import { JSX } from "react";
 
 const MarkdownRenderer = ({ text }: { text: string }) => {
   const lines = text.split("\n");
-  console.log({ lines });
+  let inList = false;
+  let inOrderedList = false;
+  let listItems: JSX.Element[] = [];
+
+  const renderList = () => {
+    if (!inList) return null;
+    
+    const listComponent = inOrderedList ? (
+      <OrderedList mb={4}>{listItems}</OrderedList>
+    ) : (
+      <UnorderedList mb={4}>{listItems}</UnorderedList>
+    );
+    
+    // Reset list state
+    listItems = [];
+    inList = false;
+    inOrderedList = false;
+    
+    return listComponent;
+  };
+
   return (
     <Box>
       {lines.map((line, i) => {
-        console.log("line -->", line);
+        // Handle headings
         if (line.startsWith("### ")) {
-          console.log("case 1 ->", line);
           return (
-            <Heading key={i} size="md" mt={4} mb={2}>
-              {line.replace("### ", "")}
-            </Heading>
+            <>
+              {renderList()}
+              <Heading key={`heading-${i}`} size="md" mt={4} mb={2}>
+                {line.replace("### ", "")}
+              </Heading>
+            </>
           );
         }
-        if (line.startsWith("- **")) {
-          const [label, value] = line.split(":");
-          console.log("case 2 ->", line);
+        
+        // Handle numbered lists (1., 2., etc.)
+        if (/^\d+\.\s/.test(line)) {
+          if (!inList) {
+            inList = true;
+            inOrderedList = true;
+          }
+          
+          // Handle bold text in list items
+          const content = line.replace(/^\d+\.\s/, '');
+          if (content.includes('**')) {
+            const parts = content.split('**');
+            listItems.push(
+              <ListItem key={`li-${i}`}>
+                {parts.map((part, idx) => 
+                  idx % 2 === 1 ? (
+                    <Text as="span" fontWeight="bold" key={`part-${idx}`}>
+                      {part}
+                    </Text>
+                  ) : (
+                    part
+                  )
+                )}
+              </ListItem>
+            );
+          } else {
+            listItems.push(<ListItem key={`li-${i}`}>{content}</ListItem>);
+          }
+          
+          return null;
+        }
+        
+        // Handle bullet points (-)
+        if (line.startsWith("- ")) {
+          if (!inList) {
+            inList = true;
+            inOrderedList = false;
+          }
+          
+          const content = line.replace(/^-\s/, '');
+          if (content.includes('**')) {
+            const parts = content.split('**');
+            listItems.push(
+              <ListItem key={`li-${i}`}>
+                {parts.map((part, idx) => 
+                  idx % 2 === 1 ? (
+                    <Text as="span" fontWeight="bold" key={`part-${idx}`}>
+                      {part}
+                    </Text>
+                  ) : (
+                    part
+                  )
+                )}
+              </ListItem>
+            );
+          } else {
+            listItems.push(<ListItem key={`li-${i}`}>{content}</ListItem>);
+          }
+          
+          return null;
+        }
+        
+        // Handle standalone bold text (not in lists)
+        if (line.includes('**')) {
+          const parts = line.split('**');
           return (
-            <Text key={i}>
-              <Text as="span" fontWeight="bold">
-                {label.replace("- **", "").replace("**", "")}:{" "}
+            <>
+              {renderList()}
+              <Text key={`bold-${i}`}>
+                {parts.map((part, idx) => 
+                  idx % 2 === 1 ? (
+                    <Text as="span" fontWeight="bold" key={`part-${idx}`}>
+                      {part}
+                    </Text>
+                  ) : (
+                    part
+                  )
+                )}
               </Text>
-              {value}
-            </Text>
+            </>
           );
         }
-        console.log("case 3 ->", line);
-        return <Text key={i}>{line}</Text>;
+        
+        // Handle regular text
+        if (line.trim() === '') {
+          const renderedList = renderList();
+          if (renderedList) return renderedList;
+          return <br key={`br-${i}`} />;
+        }
+        
+        const renderedList = renderList();
+        if (renderedList) {
+          return (
+            <>
+              {renderedList}
+              <Text key={`text-${i}`}>{line}</Text>
+            </>
+          );
+        }
+        
+        return <Text key={`text-${i}`}>{line}</Text>;
       })}
+      {renderList()}
     </Box>
   );
 };

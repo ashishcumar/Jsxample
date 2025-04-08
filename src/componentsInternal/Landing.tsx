@@ -327,26 +327,6 @@ export const Landing = () => {
 
       {/* Main Content */}
       <Box textAlign={"center"}>
-        {/* Hero Text */}
-        {/* <Heading as="h1" size="2xl" mb={6} lineHeight="1.2">
-          Frontend Interview Solutions
-          <br />
-          <Text as="span" color={brandColor}>
-            From Machine Coding to JS Fundamentals
-          </Text>
-         
-        </Heading>
-
-        <Text
-          fontSize={{ base: "lg", md: "xl" }}
-          mb={4}
-          color={textColor}
-          lineHeight="1.7"
-        >
-          Production-grade implementations for:
-        </Text> */}
-
-        {/* <Box textAlign={{ base: "center", md: "left" }} maxW="2xl"> */}
           <Heading as="h1" size="2xl" mb={5} lineHeight="1.2" fontWeight="700">
             Frontend Interview Practice
             <Text as="span" color={brandColor} display="block">
@@ -390,36 +370,6 @@ export const Landing = () => {
             </Box>
           ))}
         </Flex>
-
-        {/* Key Features */}
-        {/* <Box
-          bg={useColorModeValue("gray.50", "gray.700")}
-          p={6}
-          borderRadius="lg"
-          mb={12}
-        >
-          <Text fontWeight="bold" mb={4}>
-            What You'll Find:
-          </Text>
-          <VStack align="stretch" spacing={3}>
-            {[
-              "💻 Ready-to-use interview solutions",
-              "📊 Multiple implementation approaches",
-              "⚡ Performance-optimized code",
-              "🧠 Deep conceptual explanations",
-              "🔍 Side-by-side framework comparisons",
-            ].map((item) => (
-              <Flex key={item} align="center">
-                <Text mr={3} fontSize="xl">
-                  {item.split(" ")[0]}
-                </Text>
-                <Text>{item.split(" ").slice(1).join(" ")}</Text>
-              </Flex>
-            ))}
-          </VStack>
-        </Box> */}
-
-        {/* CTAs */}
         <Flex gap={4} direction={{ base: "column", sm: "row" }}>
           <Button
             colorScheme="purple"

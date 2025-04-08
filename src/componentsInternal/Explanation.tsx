@@ -63,7 +63,7 @@ const Explanation = ({ explanationList }: ExplanationProps) => {
         <Box
           key={index}
           p={4}
-          mb={4}
+          // mb={4}
           borderRadius="md"
           bg="bg.highlight.light"
         //   borderLeft="4px solid"
@@ -75,9 +75,9 @@ const Explanation = ({ explanationList }: ExplanationProps) => {
           boxShadow="sm"
         >
           <VStack align="start" spacing={3}>
-            <Badge colorScheme="blue" variant="subtle" alignSelf="flex-start">
+            {/* <Badge colorScheme="blue" variant="subtle" alignSelf="flex-start">
               Approach {index + 1}
-            </Badge>
+            </Badge> */}
             <MarkdownRenderer text={item} />
           </VStack>
         </Box>

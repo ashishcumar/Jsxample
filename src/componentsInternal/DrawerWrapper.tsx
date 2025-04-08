@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import NavContent from "./NavContent";
-import React from "react";
+import React, { useRef } from "react";
 
 interface IProps {
   children: React.ReactNode;
@@ -26,7 +26,7 @@ const DrawerWrapper = (props: IProps) => {
   const { children, isScrollable } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const borderColor = useColorModeValue("gray.200", "gray.700");
-  console.log({isScrollable})
+
   return (
     <Flex
       minH="100vh"
@@ -88,10 +88,7 @@ const DrawerWrapper = (props: IProps) => {
           zIndex="10"
           width={"fit-content"}
         />
-        <Box
-          px={{ base: 4, md: 8 }}
-          py={4}
-        >
+        <Box px={{ base: 4, md: 8 }} py={4}>
           {children}
         </Box>
       </Box>
