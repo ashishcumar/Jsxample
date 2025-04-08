@@ -5,15 +5,23 @@ import App from "./App.tsx";
 import { ErrorBoundary } from "react-error-boundary";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { theme } from "./theme/theme.ts";
+import { ErrorFallback } from "./componentsInternal/ErrorFallback.tsx";
 
 const customTheme = extendTheme(theme);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ErrorBoundary fallback={<h1> Error.. </h1>}>
-      <ChakraProvider theme={customTheme}>
+    <ChakraProvider theme={customTheme}>
+      <ErrorBoundary
+        fallbackRender={({ error, resetErrorBoundary }) => (
+          <ErrorFallback
+            error={error}
+            resetErrorBoundary={resetErrorBoundary}
+          />
+        )}
+      >
         <App />
-      </ChakraProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </ChakraProvider>
   </StrictMode>
 );
