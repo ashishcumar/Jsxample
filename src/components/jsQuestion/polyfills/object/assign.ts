@@ -1,0 +1,27 @@
+const assign = {
+    "title": "Object.assign() Polyfill",
+    "category": ["JavaScript", "Polyfill", "Object Methods"],
+    "description": "Implement a polyfill for Object.assign() which copies all enumerable own properties from one or more source objects to a target object.",
+    "requirements": [
+      "Should copy enumerable own properties",
+      "Should accept multiple source objects",
+      "Should return the target object",
+      "Should overwrite existing properties"
+    ],
+    "code": {
+      "basic": "Object.myAssign = function(target, ...sources) {\n  sources.forEach(source => {\n    if (source) {\n      Object.keys(source).forEach(key => {\n        target[key] = source[key];\n      });\n    }\n  });\n  return target;\n};",
+      "spec-compliant": "Object.myAssign = function(target) {\n  if (target == null) throw new TypeError('Cannot convert undefined or null to object');\n  \n  const to = Object(target);\n  \n  for (let i = 1; i < arguments.length; i++) {\n    const source = arguments[i];\n    if (source != null) {\n      for (const key in source) {\n        if (Object.prototype.hasOwnProperty.call(source, key)) {\n          to[key] = source[key];\n        }\n      }\n    }\n  }\n  \n  return to;\n};"
+    },
+    "explanation": [
+      "Copies enumerable own properties from source to target",
+      "Only copies properties that exist directly on the source object (not inherited)",
+      "Properties are overwritten if they exist in multiple sources",
+      "Returns the modified target object",
+      "Skips null/undefined sources"
+    ],
+    "tags": ["object", "polyfill", "copy"],
+    "difficulty": "medium",
+    "type": "method-polyfill"
+  }
+
+export default assign

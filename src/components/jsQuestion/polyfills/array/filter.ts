@@ -1,0 +1,28 @@
+const filter = {
+    "title": "Array.prototype.filter() Polyfill",
+    "category": ["JavaScript", "Polyfill"],
+    "description": "Implement a polyfill for the Array.prototype.filter() method which creates a new array with all elements that pass the test implemented by the provided function.",
+    "requirements": [
+      "Should work on all arrays",
+      "Should accept a predicate function",
+      "Should pass current element, index, and array to predicate",
+      "Should return a new array with only elements that pass the test"
+    ],
+    "code": {
+      "basic": "Array.prototype.myFilter = function(callback) {\n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    if (callback(this[i], i, this)) {\n      result.push(this[i]);\n    }\n  }\n  return result;\n};",
+      "with-thisArg": "Array.prototype.myFilter = function(callback, thisArg) {\n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    if (callback.call(thisArg, this[i], i, this)) {\n      result.push(this[i]);\n    }\n  }\n  return result;\n};",
+      "edge-cases": "Array.prototype.myFilter = function(callback, thisArg) {\n  if (this == null) throw new TypeError('this is null or not defined');\n  if (typeof callback !== 'function') throw new TypeError(callback + ' is not a function');\n  \n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    if (i in this && callback.call(thisArg, this[i], i, this)) {\n      result.push(this[i]);\n    }\n  }\n  return result;\n};"
+    },
+    "explanation": [
+      "The filter method creates a new array with all elements that pass the test implemented by the provided function.",
+      "We implement this by creating an empty array, then iterating through each element of the original array.",
+      "For each element, we call the predicate function - if it returns true, we add the element to our new array.",
+      "The new array with only the passing elements is returned at the end.",
+      "Edge cases include handling null this, non-function callbacks, and sparse arrays."
+    ],
+    "tags": ["array", "polyfill", "functional"],
+    "difficulty": "medium",
+    "type": "implementation"
+  }
+  
+export default filter

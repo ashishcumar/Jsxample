@@ -1,37 +1,3 @@
-// import { Box, Heading, Text } from "@chakra-ui/react";
-
-// const MarkdownRenderer = ({ text }: { text: string }) => {
-//   const lines = text.split("\n");
-
-//   return (
-//     <Box>
-//       {lines.map((line, i) => {
-//         if (line.startsWith("### ")) {
-//           return (
-//             <Heading key={i} size="md" mt={4} mb={2}>
-//               {line.replace("### ", "")}
-//             </Heading>
-//           );
-//         }
-//         if (line.startsWith("- **")) {
-//           const [label, value] = line.split(":");
-//           return (
-//             <Text key={i}>
-//               <Text as="span" fontWeight="bold">
-//                 {label.replace("- **", "").replace("**", "")}:{" "}
-//               </Text>
-//               {value}
-//             </Text>
-//           );
-//         }
-//         return <Text key={i}>{line}</Text>;
-//       })}
-//     </Box>
-//   );
-// };
-
-// export default MarkdownRenderer;
-
 import { Box, Heading, Text, UnorderedList, OrderedList, ListItem } from "@chakra-ui/react";
 import { JSX } from "react";
 

@@ -1,0 +1,26 @@
+const keys = {
+    "title": "Object.keys() Polyfill",
+    "category": ["JavaScript", "Polyfill", "Object Methods"],
+    "description": "Implement a polyfill for Object.keys() which returns an array of a given object's own enumerable property names.",
+    "requirements": [
+      "Should return only own properties",
+      "Should return only enumerable properties",
+      "Should return property names as strings",
+      "Should handle non-object inputs"
+    ],
+    "code": {
+      "basic": "Object.myKeys = function(obj) {\n  const keys = [];\n  for (const key in obj) {\n    if (obj.hasOwnProperty(key)) {\n      keys.push(key);\n    }\n  }\n  return keys;\n};",
+      "spec-compliant": "Object.myKeys = (function() {\n  const hasOwn = Object.prototype.hasOwnProperty;\n  const hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString');\n  const dontEnums = [\n    'toString',\n    'toLocaleString',\n    'valueOf',\n    'hasOwnProperty',\n    'isPrototypeOf',\n    'propertyIsEnumerable',\n    'constructor'\n  ];\n  \n  return function(obj) {\n    if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {\n      throw new TypeError('Object.keys called on non-object');\n    }\n    \n    const result = [];\n    for (const prop in obj) {\n      if (hasOwn.call(obj, prop)) {\n        result.push(prop);\n      }\n    }\n    \n    if (hasDontEnumBug) {\n      for (let i = 0; i < dontEnums.length; i++) {\n        if (hasOwn.call(obj, dontEnums[i])) {\n          result.push(dontEnums[i]);\n        }\n      }\n    }\n    \n    return result;\n  };\n})();"
+    },
+    "explanation": [
+      "Returns array of object's own enumerable property names",
+      "Uses hasOwnProperty check to exclude inherited properties",
+      "Handles non-object inputs by throwing TypeError",
+      "Includes workaround for pre-ES5 browsers with DontEnum bug"
+    ],
+    "tags": ["object", "polyfill", "enumeration"],
+    "difficulty": "medium",
+    "type": "method-polyfill"
+  }
+
+export default keys

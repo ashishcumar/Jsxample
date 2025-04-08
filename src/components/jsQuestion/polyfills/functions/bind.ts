@@ -1,0 +1,26 @@
+const bind = {
+    "title": "Function.prototype.bind() Polyfill",
+    "category": ["JavaScript", "Polyfill", "Function Methods"],
+    "description": "Implement a polyfill for Function.prototype.bind() which creates a new function with a specified this value and initial arguments.",
+    "requirements": [
+      "Should set the this context",
+      "Should support partial application",
+      "Should preserve function length when possible",
+      "Should work with constructor calls"
+    ],
+    "code": {
+      "basic": "Function.prototype.myBind = function(context, ...args) {\n  const fn = this;\n  return function(...innerArgs) {\n    return fn.apply(context, [...args, ...innerArgs]);\n  };\n};",
+      "spec-compliant": "Function.prototype.myBind = function(that) {\n  if (typeof this !== 'function') {\n    throw new TypeError('Function.prototype.bind called on incompatible ' + this);\n  }\n  \n  const args = Array.prototype.slice.call(arguments, 1);\n  const func = this;\n  const bound = function() {\n    const calledAsConstructor = this instanceof bound;\n    return func.apply(\n      calledAsConstructor ? this : that,\n      args.concat(Array.prototype.slice.call(arguments))\n    );\n  };\n  \n  if (this.prototype) {\n    bound.prototype = Object.create(this.prototype);\n  }\n  \n  return bound;\n};"
+    },
+    "explanation": [
+      "Creates a new function with bound this context",
+      "Supports partial application of arguments",
+      "Handles constructor calls (when used with new)",
+      "Preserves prototype chain for bound functions",
+      "Maintains proper function length where possible"
+    ],
+    "tags": ["function", "polyfill", "context"],
+    "difficulty": "hard",
+    "type": "method-polyfill"
+  }
+export default bind

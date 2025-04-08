@@ -1,0 +1,32 @@
+const flatMap = {
+  title: "Array.prototype.flatMap() Polyfill",
+  description:
+    "Implement a polyfill for the Array.prototype.flatMap() method which first maps each element using a mapping function, then flattens the result into a new array.",
+  category: ["JavaScript", "Polyfill"],
+  requirements: [
+    "Should work on all arrays",
+    "Should accept a callback function",
+    "Should pass current element, index, and array to callback",
+    "Should flatten the result to depth 1",
+  ],
+  code: {
+    basic:
+      "Array.prototype.myFlatMap = function(callback, thisArg) {\n  return this.map(callback, thisArg).flat(1);\n};",
+    manual:
+      "Array.prototype.myFlatMap = function(callback, thisArg) {\n  const result = [];\n  \n  for (let i = 0; i < this.length; i++) {\n    if (i in this) {\n      const mapped = callback.call(thisArg, this[i], i, this);\n      if (Array.isArray(mapped)) {\n        result.push(...mapped);\n      } else {\n        result.push(mapped);\n      }\n    }\n  }\n  \n  return result;\n};",
+    "edge-cases":
+      "Array.prototype.myFlatMap = function(callback, thisArg) {\n  if (this == null) throw new TypeError('this is null or not defined');\n  if (typeof callback !== 'function') throw new TypeError(callback + ' is not a function');\n  \n  const array = Object(this);\n  const len = array.length >>> 0;\n  \n  const result = [];\n  \n  for (let i = 0; i < len; i++) {\n    if (i in array) {\n      const mappedValue = callback.call(thisArg, array[i], i, array);\n      if (Array.isArray(mappedValue)) {\n        for (const item of mappedValue) {\n          result.push(item);\n        }\n      } else {\n        result.push(mappedValue);\n      }\n    }\n  }\n  \n  return result;\n};",
+  },
+  explanation: [
+    "The flatMap method first maps each element using a mapping function, then flattens the result into a new array.",
+    "It's essentially equivalent to map() followed by flat(1), but more efficient.",
+    "We can implement it either by composing map() and flat(), or manually for better performance.",
+    "The callback can return either a single value or an array - both cases are handled.",
+    "Edge cases include handling null this, non-function callbacks, and sparse arrays.",
+  ],
+  tags: ["array", "polyfill", "functional"],
+  difficulty: "hard",
+  type: "implementation",
+};
+
+export default flatMap;

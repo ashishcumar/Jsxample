@@ -1,0 +1,25 @@
+const is = {
+    "title": "Object.is() Polyfill",
+    "category": ["JavaScript", "Polyfill", "Object Methods"],
+    "description": "Implement a polyfill for Object.is() which determines whether two values are the same value.",
+    "requirements": [
+      "Should handle NaN comparison correctly",
+      "Should handle +0/-0 comparison correctly",
+      "Should use SameValue algorithm"
+    ],
+    "code": {
+      "basic": "Object.myIs = function(x, y) {\n  if (x === y) {\n    // Handle +0 vs -0\n    return x !== 0 || 1 / x === 1 / y;\n  } else {\n    // Handle NaN\n    return x !== x && y !== y;\n  }\n};",
+      "spec-compliant": "Object.myIs = function(x, y) {\n  // SameValue algorithm\n  if (x === y) {\n    // Steps 1-5, 7-10\n    // Steps 6.b-6.e: +0 != -0\n    return x !== 0 || 1 / x === 1 / y;\n  } else {\n    // Step 6.a: NaN == NaN\n    return x !== x && y !== y;\n  }\n};"
+    },
+    "explanation": [
+      "Implements SameValue comparison algorithm",
+      "Returns true for NaN === NaN (unlike == or ===)",
+      "Returns false for +0 === -0 (unlike == or ===)",
+      "Otherwise behaves like strict equality (===)"
+    ],
+    "tags": ["object", "polyfill", "comparison"],
+    "difficulty": "easy",
+    "type": "method-polyfill"
+  }
+
+export default is
