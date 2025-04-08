@@ -1,47 +1,194 @@
-import { Link, List, ListItem, Text } from "@chakra-ui/react";
+import {
+  Link,
+  List,
+  ListItem,
+  Text,
+  Input,
+  Box,
+  Highlight,
+} from "@chakra-ui/react";
+import { useState, useMemo } from "react";
+
+interface NavItem {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  isHeader?: boolean;
+  path?: string; // Added path for direct links
+}
 
 const NavContent = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Single level array with all navigation items
+  const navItems: NavItem[] = useMemo(
+    () => [
+      // // Core Challenges
+      // { title: "Core Challenges", isHeader: true },
+      // { title: "Accordion", subtitle: "React | Vanilla JS", path: "/accordion" },
+      // { title: "Infinite Scroll", subtitle: "React | Window API", path: "/infinite-scroll" },
+
+      // // Custom Hooks
+      // { title: "Custom Hooks", isHeader: true },
+      // { title: "useFetch", subtitle: "Data fetching", path: "/use-fetch" },
+
+      // // Vanilla JS
+      // { title: "Vanilla JS", isHeader: true },
+      // { title: "Debounce", subtitle: "Performance", path: "/debounce" },
+
+      // Polyfills - Array
+      { title: "Array Polyfills", isHeader: true },
+      { title: "Array.at()", path: "/polyfills/array/at" },
+      { title: "Array.filter()", path: "/polyfills/array/filter" },
+      { title: "Array.map()", path: "/polyfills/array/map" },
+      { title: "Array.reduce()", path: "/polyfills/array/reduce" },
+
+      // Polyfills - Function
+      { title: "Function Polyfills", isHeader: true },
+      { title: "Function.apply()", path: "/polyfills/function/apply" },
+      { title: "Function.bind()", path: "/polyfills/function/bind" },
+      { title: "Function.call()", path: "/polyfills/function/call" },
+
+      // Polyfills - Object
+      { title: "Object Polyfills", isHeader: true },
+      { title: "Object.assign()", path: "/polyfills/object/assign" },
+      { title: "Object.entries()", path: "/polyfills/object/entries" },
+      { title: "Object.freeze()", path: "/polyfills/object/freeze" },
+
+      // Web APIs
+      { title: "Web API Polyfills", isHeader: true },
+      { title: "fetch()", path: "/polyfills/web-api/fetch" },
+      {
+        title: "IntersectionObserver",
+        path: "/polyfills/web-api/intersection-observer",
+      },
+      { title: "ResizeObserver", path: "/polyfills/web-api/resize-observer" },
+
+      // Promises
+      { title: "Promise Polyfills", isHeader: true },
+      { title: "Promise.all()", path: "/polyfills/promise/all" },
+      { title: "Promise.allSettled()", path: "/polyfills/promise/all-settled" },
+      { title: "Promise.any()", path: "/polyfills/promise/any" },
+      { title: "Promise.race()", path: "/polyfills/promise/race" },
+    ],
+    []
+  );
+
+  const filteredItems = useMemo(() => {
+    if (!searchQuery) return navItems;
+
+    const query = searchQuery.toLowerCase();
+    return navItems.filter((item) => {
+      if (item.isHeader) {
+        return item.title.toLowerCase().includes(query);
+      }
+
+      return (
+        item.title.toLowerCase().includes(query) ||
+        (item.subtitle && item.subtitle.toLowerCase().includes(query)) ||
+        (item.description && item.description.toLowerCase().includes(query))
+      );
+    });
+  }, [navItems, searchQuery]);
+
   return (
-    <List spacing={1} p={2}>
-      {[
-        { title: "Core Challenges", isHeader: true },
-        { title: "Accordion", subtitle: "React | Vanilla JS" },
-        { title: "Infinite Scroll", subtitle: "React | Window API" },
-        { title: "Custom Hooks", isHeader: true },
-        { title: "useFetch", subtitle: "Data fetching" },
-        { title: "Vanilla JS", isHeader: true },
-        { title: "Debounce", subtitle: "Performance" },
-      ].map((item, index) => (
-        <ListItem key={index}>
-          {item.isHeader ? (
-            <Text fontWeight="bold" mt={4} mb={2} px={2} fontSize="sm">
-              {item.title}
-            </Text>
-          ) : (
-            <Link
-              display="block"
-              px={3}
-              py={2}
-              borderRadius="md"
-              _hover={{ bg: "gray.100", _dark: { bg: "gray.700" } }}
+    <Box
+      height="100vh"
+      display="flex"
+      flexDirection="column"
+      bg="bg.dark"
+      color="text.dark"
+    >
+      <Box
+        p={4}
+        borderBottomWidth="1px"
+        borderColor="border.dark"
+        bg="gray.800"
+      >
+        <Input
+          placeholder="Search ..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          borderRadius="lg"
+          bg="gray.700"
+          borderColor="gray.600"
+          _placeholder={{ color: "gray.400" }}
+          _hover={{ borderColor: "blue.300" }}
+          _focus={{
+            borderColor: "blue.300",
+            boxShadow: "0 0 0 1px var(--chakra-colors-blue-300)",
+          }}
+          size="md"
+        />
+      </Box>
+
+      <Box flex="1" overflowY="auto" bg="gray.800">
+        <List spacing={0}>
+          {filteredItems.map((item, index) => (
+            <ListItem
+              key={index}
+              borderBottomWidth={item.isHeader ? "0px" : "1px"}
+              borderColor="gray.700"
             >
-              <Text>{item.title}</Text>
-              {item.subtitle && (
+              {item.isHeader ? (
                 <Text
-                  fontSize="xs"
-                  color="gray.500"
-                  _dark={{ color: "gray.400" }}
+                  fontWeight="bold"
+                  px={4}
+                  py={3}
+                  fontSize="sm"
+                  color="blue.300"
+                  bg="gray.900"
+                  borderTopWidth={index !== 0 ? "1px" : "0px"}
+                  borderBottomWidth="1px"
+                  borderColor="gray.700"
                 >
-                  {item.subtitle}
+                  <Highlight
+                    query={searchQuery}
+                    styles={{ bg: "yellow.500", color: "gray.900" }}
+                  >
+                    {item.title}
+                  </Highlight>
                 </Text>
+              ) : (
+                <Link
+                  href={item.path}
+                  display="block"
+                  px={4}
+                  py={3}
+                  _hover={{
+                    bg: "gray.700",
+                    textDecoration: "none",
+                    transform: "translateX(2px)",
+                    transition: "transform 0.1s ease",
+                  }}
+                  transition="background 0.2s ease"
+                >
+                  <Text fontWeight="medium">
+                    <Highlight
+                      query={searchQuery}
+                      styles={{ bg: "yellow.500", color: "gray.900" }}
+                    >
+                      {item.title}
+                    </Highlight>
+                  </Text>
+                  {item.subtitle && (
+                    <Text fontSize="sm" color="gray.400" mt={1}>
+                      <Highlight
+                        query={searchQuery}
+                        styles={{ bg: "yellow.500", color: "gray.900" }}
+                      >
+                        {item.subtitle}
+                      </Highlight>
+                    </Text>
+                  )}
+                </Link>
               )}
-            </Link>
-          )}
-        </ListItem>
-      ))}
-    </List>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </Box>
   );
 };
-
 
 export default NavContent;
