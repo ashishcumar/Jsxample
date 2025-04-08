@@ -1,6 +1,6 @@
 export const transferListJson = {
   "React Tsx": {
-    code: {
+    "code": {
       "TransferList.tsx": `
             import React, { useState } from "react";
             
@@ -198,7 +198,7 @@ export const transferListJson = {
     },
   },
   "React Jsx": {
-    code: {
+    "code": {
       "TransferList.jsx": `
         import React from "react";
 import { useState } from "react";
@@ -430,7 +430,7 @@ export default TransferList;
     },
   },
   "Vanilla Javascript": {
-    code: {
+    "code": {
       HTML: `
           <div id="root"></div>
           `,

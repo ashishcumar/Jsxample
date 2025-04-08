@@ -1,0 +1,28 @@
+{
+  "title": "Array.prototype.flat() Polyfill",
+  "description":
+    "Implement a polyfill for the Array.prototype.flat() method which creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.",
+  "category": ["JavaScript", "Polyfill"],
+  "requirements": [
+    "Should work on all arrays",
+    "Should accept an optional depth parameter (default: 1)",
+    "Should flatten arrays recursively up to the specified depth",
+    "Should skip empty slots in sparse arrays"
+  ],
+  "code": {
+    "basic":
+      "Array.prototype.myFlat = function(depth = 1) {\n  const result = [];\n  \n  (function flatten(array, currentDepth) {\n    for (const item of array) {\n      if (Array.isArray(item) && currentDepth > 0) {\n        flatten(item, currentDepth - 1);\n      } else {\n        result.push(item);\n      }\n    }\n  })(this, depth);\n  \n  return result;\n};",
+    "edge-cases":
+      "Array.prototype.myFlat = function(depth) {\n  if (this == null) throw new TypeError('this is null or not defined');\n  \n  const array = Object(this);\n  const len = array.length >>> 0;\n  \n  depth = depth === undefined ? 1 : Number(depth);\n  \n  const result = [];\n  \n  (function flatten(array, currentDepth) {\n    for (let i = 0; i < array.length; i++) {\n      if (i in array) {\n        const element = array[i];\n        if (Array.isArray(element) && currentDepth > 0) {\n          flatten(element, currentDepth - 1);\n        } else {\n          result.push(element);\n        }\n      }\n    }\n  })(array, depth);\n  \n  return result;\n};"
+  },
+  "explanation": [
+    "The flat method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.",
+    "We implement this using recursion - for each element, if it's an array and we haven't reached max depth, we flatten it.",
+    "The default depth is 1, meaning only one level of nesting is flattened by default.",
+    "We handle edge cases like sparse arrays and non-array this values.",
+    "The implementation preserves empty slots in the original array."
+  ],
+  "tags": ["array", "polyfill", "recursion"],
+  "difficulty": "hard",
+  "type": "implementation"
+}

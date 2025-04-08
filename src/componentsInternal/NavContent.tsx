@@ -10,7 +10,7 @@ import {
 import { useState, useMemo } from "react";
 
 interface NavItem {
-  title: string;
+  "title": string;
   subtitle?: string;
   description?: string;
   isHeader?: boolean;
@@ -24,52 +24,52 @@ const NavContent = () => {
   const navItems: NavItem[] = useMemo(
     () => [
       // // Core Challenges
-      // { title: "Core Challenges", isHeader: true },
-      // { title: "Accordion", subtitle: "React | Vanilla JS", path: "/accordion" },
-      // { title: "Infinite Scroll", subtitle: "React | Window API", path: "/infinite-scroll" },
+      // { "title": "Core Challenges", isHeader: true },
+      // { "title": "Accordion", subtitle: "React | Vanilla JS", path: "/accordion" },
+      // { "title": "Infinite Scroll", subtitle: "React | Window API", path: "/infinite-scroll" },
 
       // // Custom Hooks
-      // { title: "Custom Hooks", isHeader: true },
-      // { title: "useFetch", subtitle: "Data fetching", path: "/use-fetch" },
+      // { "title": "Custom Hooks", isHeader: true },
+      // { "title": "useFetch", subtitle: "Data fetching", path: "/use-fetch" },
 
       // // Vanilla JS
-      // { title: "Vanilla JS", isHeader: true },
-      // { title: "Debounce", subtitle: "Performance", path: "/debounce" },
+      // { "title": "Vanilla JS", isHeader: true },
+      // { "title": "Debounce", subtitle: "Performance", path: "/debounce" },
 
       // Polyfills - Array
-      { title: "Array Polyfills", isHeader: true },
-      { title: "Array.at()", path: "/polyfills/array/at" },
-      { title: "Array.filter()", path: "/polyfills/array/filter" },
-      { title: "Array.map()", path: "/polyfills/array/map" },
-      { title: "Array.reduce()", path: "/polyfills/array/reduce" },
+      { "title": "Array Polyfills", isHeader: true },
+      { "title": "Array.at()", path: "/polyfills/array/at" },
+      { "title": "Array.filter()", path: "/polyfills/array/filter" },
+      { "title": "Array.map()", path: "/polyfills/array/map" },
+      { "title": "Array.reduce()", path: "/polyfills/array/reduce" },
 
       // Polyfills - Function
-      { title: "Function Polyfills", isHeader: true },
-      { title: "Function.apply()", path: "/polyfills/function/apply" },
-      { title: "Function.bind()", path: "/polyfills/function/bind" },
-      { title: "Function.call()", path: "/polyfills/function/call" },
+      { "title": "Function Polyfills", isHeader: true },
+      { "title": "Function.apply()", path: "/polyfills/function/apply" },
+      { "title": "Function.bind()", path: "/polyfills/function/bind" },
+      { "title": "Function.call()", path: "/polyfills/function/call" },
 
       // Polyfills - Object
-      { title: "Object Polyfills", isHeader: true },
-      { title: "Object.assign()", path: "/polyfills/object/assign" },
-      { title: "Object.entries()", path: "/polyfills/object/entries" },
-      { title: "Object.freeze()", path: "/polyfills/object/freeze" },
+      { "title": "Object Polyfills", isHeader: true },
+      { "title": "Object.assign()", path: "/polyfills/object/assign" },
+      { "title": "Object.entries()", path: "/polyfills/object/entries" },
+      { "title": "Object.freeze()", path: "/polyfills/object/freeze" },
 
       // Web APIs
-      { title: "Web API Polyfills", isHeader: true },
-      { title: "fetch()", path: "/polyfills/web-api/fetch" },
+      { "title": "Web API Polyfills", isHeader: true },
+      { "title": "fetch()", path: "/polyfills/web-api/fetch" },
       {
-        title: "IntersectionObserver",
+        "title": "IntersectionObserver",
         path: "/polyfills/web-api/intersection-observer",
       },
-      { title: "ResizeObserver", path: "/polyfills/web-api/resize-observer" },
+      { "title": "ResizeObserver", path: "/polyfills/web-api/resize-observer" },
 
       // Promises
-      { title: "Promise Polyfills", isHeader: true },
-      { title: "Promise.all()", path: "/polyfills/promise/all" },
-      { title: "Promise.allSettled()", path: "/polyfills/promise/all-settled" },
-      { title: "Promise.any()", path: "/polyfills/promise/any" },
-      { title: "Promise.race()", path: "/polyfills/promise/race" },
+      { "title": "Promise Polyfills", isHeader: true },
+      { "title": "Promise.all()", path: "/polyfills/promise/all" },
+      { "title": "Promise.allSettled()", path: "/polyfills/promise/all-settled" },
+      { "title": "Promise.any()", path: "/polyfills/promise/any" },
+      { "title": "Promise.race()", path: "/polyfills/promise/race" },
     ],
     []
   );

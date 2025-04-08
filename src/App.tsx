@@ -7,7 +7,7 @@ import ChallengeDetails from "./componentsInternal/ChallengeDetails";
 import Implementation from "./componentsInternal/Implementation";
 import Explanation from "./componentsInternal/Explanation";
 import BenchmarkCard from "./componentsInternal/Benchmarks";
-import executeNPromise from "./components/jsQuestion/promises/executeNPromise";
+import arrayFlatteningJson from "./components/jsQuestion/arrayFlatteningJson";
 
 function App() {
   const landingRef = useRef<HTMLDivElement | null>(null);
@@ -46,18 +46,18 @@ function App() {
           transition="background-color 0.2s, color 0.2s"
         >
           <ChallengeDetails
-            description={executeNPromise.description}
-            requirements={executeNPromise.requirements}
-            title={executeNPromise.title}
+            description={arrayFlatteningJson.description}
+            requirements={arrayFlatteningJson.requirements}
+            title={arrayFlatteningJson.title}
           />
           {/* <SolutionPreview /> */}
-          <Implementation question={executeNPromise} />
-          {executeNPromise.explanation?.length ? (
-            <Explanation explanationList={executeNPromise.explanation} />
+          <Implementation question={arrayFlatteningJson} />
+          {arrayFlatteningJson.explanation?.length ? (
+            <Explanation explanationList={arrayFlatteningJson.explanation} />
           ) : null}
-          {executeNPromise.benchmarks &&
-          Object.keys(executeNPromise.benchmarks)?.length ? (
-            <BenchmarkCard data={executeNPromise.benchmarks} />
+          {arrayFlatteningJson.benchmarks &&
+          Object.keys(arrayFlatteningJson.benchmarks)?.length ? (
+            <BenchmarkCard data={arrayFlatteningJson.benchmarks} />
           ) : null}
         </Box>
       </DrawerWrapper>

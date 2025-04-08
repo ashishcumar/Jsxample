@@ -11,9 +11,9 @@ import {
 } from "@chakra-ui/react";
 
 interface IProps {
-  title: string;
-  description: string;
-  requirements: string[];
+  "title": string;
+  "description": string;
+  "requirements": string[];
 }
 
 function ChallengeDetails(props: IProps) {

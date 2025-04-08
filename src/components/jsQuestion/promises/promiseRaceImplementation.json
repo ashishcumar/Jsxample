@@ -1,0 +1,29 @@
+{
+  "title": "Promise.race() Polyfill",
+  "category": ["JavaScript", "Asynchronous Programming"],
+  "description": "Complete implementations of Promise.race() with different settlement strategies",
+  "requirements": [
+    "Settle when any promise settles (fulfill/reject)",
+    "Preserve first settlement value/reason",
+    "Handle non-promise values",
+    "Mirror native Promise.race() behavior"
+  ],
+  "code": {
+    "Approach 1 - Basic Loop": "Promise.customRace = function(promises) {\n  return new Promise((resolve, reject) => {\n    promises.forEach(promise => \n      Promise.resolve(promise)\n        .then(resolve)\n        .catch(reject)\n    );\n  });\n};",
+    "Approach 2 - Promise Constructor (Optimized)": "Promise.optimizedRace = function(promises) {\n  return new Promise((resolve, reject) => {\n    let settled = false;\n    const settleOnce = (fn) => (val) => {\n      if (!settled) {\n        settled = true;\n        fn(val);\n      }\n    };\n\n    promises.forEach(promise => {\n      Promise.resolve(promise)\n        .then(settleOnce(resolve))\n        .catch(settleOnce(reject));\n    });\n  });\n};",
+    "Approach 3 - Async/Await + Loop": "async function asyncRace(promises) {\n  const wrappers = promises.map(p => \n    Promise.resolve(p)\n      .then(val => ({ status: 'fulfilled', val }))\n      .catch(err => ({ status: 'rejected', err }))\n  );\n\n  for (const wrapper of wrappers) {\n    const result = await wrapper;\n    if (result.status === 'fulfilled') return result.val;\n    throw result.err;\n  }\n}",
+    "Approach 4 - Aggregate + First Settlement": "function aggregateRace(promises) {\n  return new Promise((resolve, reject) => {\n    const errors = [];\n    let pending = promises.length;\n\n    promises.forEach((promise, i) => {\n      Promise.resolve(promise)\n        .then(resolve)\n        .catch(err => {\n          errors[i] = err;\n          if (--pending === 0) {\n            reject(new AggregateError(errors, 'All promises rejected'));\n          }\n        });\n    });\n  });\n}"
+  },
+  "explanation": [
+    "### Approach Comparison:\n- **Basic Loop**: Simplest but may trigger multiple settlements\n- **Optimized**: Prevents multiple settlements with flag\n- **Async/Await**: Uses wrapper objects for error handling\n- **Aggregate**: Collects errors if all reject (like Promise.any() fallback)",
+    "### Edge Cases:\n- Empty input → Hangs indefinitely\n- Immediate values → Settles with first value\n- Mixed reject/fulfill → Mirrors first outcome"
+  ],
+  "tags": ["promises", "concurrency", "early-exit"],
+  "difficulty": "Medium",
+  "benchmarks": {
+    "Basic Loop": "Fastest but less safe",
+    "Optimized": "Safe with minor overhead",
+    "Async/Await": "Clean but sequentializes checks"
+  },
+  "type": "javascript"
+}

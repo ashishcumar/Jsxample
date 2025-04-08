@@ -1,6 +1,6 @@
 export const progressBarJson = {
   "React TSX": {
-    code: {
+    "code": {
       "ProgressBar.tsx": `
 import React, { useEffect, useState, useRef } from "react";
 
@@ -106,7 +106,7 @@ export default ProgressBar;
     },
   },
   "React JSX": {
-    code: {
+    "code": {
       "ProgressBar.jsx": `
 import React, { useEffect, useState, useRef } from "react";
 

@@ -1,0 +1,27 @@
+{
+  "title": "Promise.allSettled() Implementation",
+  "category": ["JavaScript", "Asynchronous Programming"],
+  "description": "Complete implementations to wait for all promises to complete, never rejecting",
+  "requirements": [
+    "Never reject the aggregate promise",
+    "Record all fulfillment values and rejection reasons",
+    "Preserve original order of results",
+    "Handle non-promise values"
+  ],
+  "code": {
+    "Approach 1 - Basic Counter": "function allSettledBasic(promises) {\n  const results = new Array(promises.length);\n  let completed = 0;\n  return new Promise(resolve => {\n    promises.forEach((promise, i) => {\n      Promise.resolve(promise)\n        .then(value => results[i] = { status: 'fulfilled', value })\n        .catch(reason => results[i] = { status: 'rejected', reason })\n        .finally(() => ++completed === promises.length && resolve(results));\n    });\n  });\n}",
+    "Approach 2 - Promise.all Wrapper": "function allSettledWrapper(promises) {\n  return Promise.all(promises.map(p => \n    Promise.resolve(p)\n      .then(value => ({ status: 'fulfilled', value }))\n      .catch(reason => ({ status: 'rejected', reason }))\n  ));\n}",
+    "Approach 3 - Async/Await": "async function allSettledAsync(promises) {\n  const results = [];\n  for (const [i, promise] of promises.entries()) {\n    try {\n      results[i] = { \n        status: 'fulfilled', \n        value: await Promise.resolve(promise) \n      };\n    } catch (err) {\n      results[i] = { \n        status: 'rejected', \n        reason: err \n      };\n    }\n  }\n  return results;\n}"
+  },
+  "explanation": [
+    "### Approach Comparison:\n- **Basic Counter**: Explicit completion tracking\n- **Promise.all Wrapper**: Most concise (ES2019 spec-aligned)\n- **Async/Await**: Sequential-looking but parallel execution",
+    "### Edge Cases:\n- Empty array → Resolves with []\n- Non-promise values → Wrapped as fulfilled\n- Mixed sync/async → Preserves order"
+  ],
+  "tags": ["promises", "error-handling", "state-tracking"],
+  "difficulty": "Medium",
+  "benchmarks": {
+    "Basic Counter": "Fastest for most cases",
+    "Promise.all Wrapper": "Native-optimized path"
+  },
+  "type": "javascript"
+}

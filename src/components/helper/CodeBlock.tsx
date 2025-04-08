@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { getHighlighter } from "shiki-es";
 
 interface IProps {
-  code: string;
+  "code": string;
 }
 
 const CodeBlock = (props: IProps) => {

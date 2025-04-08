@@ -1,0 +1,34 @@
+{
+  "title": "Promise.finally() Polyfill",
+  "category": ["JavaScript", "Asynchronous Programming"],
+  "description": "Implementations that execute a callback regardless of promise settlement",
+  "requirements": [
+    "Execute callback on both fulfillment and rejection",
+    "Preserve original promise chain value/error",
+    "Handle chained finally calls correctly",
+    "Maintain native finally() behavior"
+  ],
+  "code": {
+    "Approach 1 - Then/Catch Mirroring": "Promise.prototype.customFinally = function(onFinally) {\n  return this.then(\n    value => Promise.resolve(onFinally()).then(() => value),\n    reason => Promise.resolve(onFinally()).then(() => { throw reason; })\n  );\n};",
+    "Approach 2 - Async/Await Wrapper": "Promise.prototype.asyncFinally = async function(onFinally) {\n  try {\n    const val = await this;\n    await onFinally();\n    return val;\n  } catch (err) {\n    await onFinally();\n    throw err;\n  }\n};",
+    "Approach 3 - Constructor-Based": "Promise.prototype.constructorFinally = function(onFinally) {\n  const Constructor = this.constructor;\n  return new Constructor((resolve, reject) => {\n    this.then(\n      value => Constructor.resolve(onFinally()).then(() => resolve(value)),\n      reason => Constructor.resolve(onFinally()).then(() => reject(reason))\n    );\n  });\n};",
+    "Approach 4 - State Inspection": "Promise.prototype.stateAwareFinally = function(onFinally) {\n  let state = 'pending';\n  let value, reason;\n\n  const promise = this.then(\n    val => (state = 'fulfilled', value = val),\n    err => (state = 'rejected', reason = err)\n  );\n\n  return Promise.resolve(promise).then(() => {\n    return Promise.resolve(onFinally()).then(() => {\n      return state === 'fulfilled' ? value : Promise.reject(reason);\n    });\n  });\n};"
+  },
+  "explanation": [
+    "### Approach Comparison:\n- **Then/Catch**: Native-spec compliant (ES2018)\n- **Async/Await**: Readable but creates microtasks\n- **Constructor**: Preserves subclass behavior\n- **State Inspection**: Explicit state tracking (overkill for most cases)",
+    "### Key Behaviors:\n1. Callback executes after settlement\n2. Original value/error propagates\n3. Returns new promise for chaining\n4. If callback throws, that error propagates"
+  ],
+  "tags": ["promises", "cleanup", "error-handling", "ES2018"],
+  "difficulty": "Medium",
+  "benchmarks": {
+    "Then/Catch": "Most efficient (native-like)",
+    "Async/Await": "Adds 1 extra microtask",
+    "Constructor": "Best for Promise subclasses"
+  },
+  "type": "javascript",
+  "testCases": {
+    "Value Preservation": "Promise.resolve(42)\n  .customFinally(() => console.log('Cleanup'))\n  .then(v => console.log(v)); // 42 (after 'Cleanup')",
+    "Error Propagation": "Promise.reject('Error')\n  .customFinally(() => {})\n  .catch(e => console.log(e)); // 'Error'",
+    "Callback Throws": "Promise.resolve(42)\n  .customFinally(() => { throw 'FinallyError'; })\n  .catch(e => console.log(e)); // 'FinallyError'"
+  }
+}

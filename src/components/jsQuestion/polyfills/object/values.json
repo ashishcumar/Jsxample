@@ -1,0 +1,23 @@
+{
+  "title": "Object.values() Polyfill",
+  "category": ["JavaScript", "Polyfill", "Object Methods"],
+  "description": "Implement a polyfill for Object.values() which returns an array of a given object's own enumerable property values.",
+  "requirements": [
+    "Should return only own property values",
+    "Should return only enumerable property values",
+    "Should handle non-object inputs"
+  ],
+  "code": {
+    "basic": "Object.myValues = function(obj) {\n  const values = [];\n  for (const key in obj) {\n    if (obj.hasOwnProperty(key)) {\n      values.push(obj[key]);\n    }\n  }\n  return values;\n};",
+    "spec-compliant": "Object.myValues = function(obj) {\n  if (obj == null) throw new TypeError('Cannot convert undefined or null to object');\n  \n  const values = [];\n  for (const key in Object(obj)) {\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\n      values.push(obj[key]);\n    }\n  }\n  return values;\n};"
+  },
+  "explanation": [
+    "Returns array of object's own enumerable property values",
+    "Similar to Object.keys() but returns values instead of keys",
+    "Converts primitive inputs to objects (except null/undefined)",
+    "Uses hasOwnProperty check to exclude inherited properties"
+  ],
+  "tags": ["object", "polyfill", "enumeration"],
+  "difficulty": "medium",
+  "type": "method-polyfill"
+}

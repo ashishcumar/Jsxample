@@ -49,7 +49,7 @@ function ReactCodeImplementation() {
                   (
                     transferListJson[
                       codePart as keyof typeof transferListJson
-                    ] as { code: { [key: string]: string } }
+                    ] as { "code": { [key: string]: string } }
                   ).code[item]
                 }
               />
