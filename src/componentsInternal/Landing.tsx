@@ -328,12 +328,13 @@ export const Landing = () => {
       {/* Main Content */}
       <Box textAlign={"center"}>
         {/* Hero Text */}
-        <Heading as="h1" size="2xl" mb={6} lineHeight="1.2">
+        {/* <Heading as="h1" size="2xl" mb={6} lineHeight="1.2">
           Frontend Interview Solutions
           <br />
           <Text as="span" color={brandColor}>
             From Machine Coding to JS Fundamentals
           </Text>
+         
         </Heading>
 
         <Text
@@ -343,7 +344,27 @@ export const Landing = () => {
           lineHeight="1.7"
         >
           Production-grade implementations for:
-        </Text>
+        </Text> */}
+
+        {/* <Box textAlign={{ base: "center", md: "left" }} maxW="2xl"> */}
+          <Heading as="h1" size="2xl" mb={5} lineHeight="1.2" fontWeight="700">
+            Frontend Interview Practice
+            <Text as="span" color={brandColor} display="block">
+              Machine Coding & JS Solutions
+            </Text>
+          </Heading>
+
+          <Text
+            fontSize={{ base: "lg", md: "xl" }}
+            mb={8}
+            color={textColor}
+            lineHeight="1.7"
+          >
+            Explore practical solutions to common interview challenges, from
+            React components to JavaScript fundamentals.
+          </Text>
+     
+
         {/* Categories */}
         <Flex gap={8} margin={"36px auto"} justifyContent={"center"}>
           {categories.map((category) => (

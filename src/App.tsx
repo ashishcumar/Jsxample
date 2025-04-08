@@ -4,13 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import DrawerWrapper from "./componentsInternal/DrawerWrapper";
 import { Landing } from "./componentsInternal/Landing";
 import ChallengeDetails from "./componentsInternal/ChallengeDetails";
-import SolutionPreview from "./componentsInternal/SolutionPreview";
+
 import Implementation from "./componentsInternal/Implementation";
+import promiseAllImplementation from "./components/jsQuestion/promiseAllImplementation";
+import Explanation from "./componentsInternal/Explanation";
+import BenchmarkCard from "./componentsInternal/Benchmarks";
 
 function App() {
   const landingRef = useRef<HTMLDivElement | null>(null);
   const [isScrollable, setIsScrollable] = useState(false);
-  
 
   useEffect(() => {
     if (!landingRef.current) return;
@@ -37,7 +39,6 @@ function App() {
       <Grid ref={landingRef} scrollSnapAlign="start" minHeight="100vh">
         <Landing />
       </Grid>
-
       <DrawerWrapper isScrollable={isScrollable}>
         <Box
           bg="bg"
@@ -49,9 +50,20 @@ function App() {
           minHeight="100vh"
           overflow={isScrollable ? "scroll" : "hidden"}
         >
-          <ChallengeDetails />
-          <SolutionPreview />
-          <Implementation  />
+          <ChallengeDetails
+            description={promiseAllImplementation.description}
+            requirements={promiseAllImplementation.requirements}
+            title={promiseAllImplementation.title}
+          />
+          {/* <SolutionPreview /> */}
+          <Implementation question={promiseAllImplementation} />
+          {promiseAllImplementation.explanation?.length ? (
+            <Explanation explanationList={promiseAllImplementation.explanation} />
+          ) : null}
+          {promiseAllImplementation.benchmarks &&
+          Object.keys(promiseAllImplementation.benchmarks)?.length ? (
+            <BenchmarkCard data={promiseAllImplementation.benchmarks} />
+          ) : null}
         </Box>
       </DrawerWrapper>
     </Grid>
