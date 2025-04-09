@@ -11,34 +11,14 @@ import arrayFlatteningJson from "../public/jsQuestions/arrayFlatteningJson";
 
 function App() {
   const landingRef = useRef<HTMLDivElement | null>(null);
-  const [isScrollable, setIsScrollable] = useState(false);
-
-  useEffect(() => {
-    if (!landingRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsScrollable(!entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0,
-      }
-    );
-
-    observer.observe(landingRef.current);
-
-    return () => {
-      if (landingRef.current) observer.unobserve(landingRef.current);
-    };
-  }, []);
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
 
   return (
     <Grid scrollSnapType="y mandatory">
       <Grid ref={landingRef} scrollSnapAlign="start" minHeight="100vh">
         <Landing />
       </Grid>
-      <DrawerWrapper>
+      <DrawerWrapper setSelectedPath={setSelectedPath} >
         <Box
           bg="bg"
           color="text"

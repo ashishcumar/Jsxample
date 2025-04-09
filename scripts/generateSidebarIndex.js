@@ -1,37 +1,51 @@
-// scripts/generateSidebarIndex.ts
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const baseDir = path.join(__dirname, "../public/jsQuestions");
+const outputFile = path.join(baseDir, "sidebarIndex.json");
 
-function generateIndex(dir) {
-  const result = {};
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+function generateSidebarArray(dir) {
+  const sidebarArray = [];
 
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      result[entry.name] = generateIndex(fullPath);
-    } else if (entry.isFile() && entry.name.endsWith(".json")) {
-      result[entry.name.replace(".json", "")] = path
-        .relative(baseDir, fullPath)
-        .replace(/\\/g, "/");
+  const categories = fs.readdirSync(dir, { withFileTypes: true }).filter(d => d.isDirectory());
+
+  for (const category of categories) {
+    const categoryPath = path.join(dir, category.name);
+    const subcategories = fs.readdirSync(categoryPath, { withFileTypes: true }).filter(d => d.isDirectory());
+
+    for (const subcategory of subcategories) {
+      const subcategoryPath = path.join(categoryPath, subcategory.name);
+
+      // Header for this section
+      sidebarArray.push({
+        title: `${capitalize(subcategory.name)} - ${capitalize(category.name)}`,
+        isHeader: true
+      });
+
+      const files = fs.readdirSync(subcategoryPath, { withFileTypes: true }).filter(f => f.isFile() && f.name.endsWith(".json"));
+
+      for (const file of files) {
+        const name = file.name.replace(".json", "");
+        sidebarArray.push({
+          title: name,
+          path: `/${category.name}/${subcategory.name}/${name}`
+        });
+      }
     }
   }
 
-  return result;
+  return sidebarArray;
 }
 
-const sidebarIndex = generateIndex(baseDir);
+const sidebarData = generateSidebarArray(baseDir);
 
-fs.writeFileSync(
-  path.join(baseDir, "sidebarIndex.json"),
-  JSON.stringify(sidebarIndex, null, 2)
-);
-
-console.log("✅ Sidebar index generated!");
+fs.writeFileSync(outputFile, JSON.stringify(sidebarData, null, 2));
+console.log("✅ sidebarIndex.json generated!");

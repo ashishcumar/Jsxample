@@ -1,47 +1,118 @@
-{
-  "polyfills": {
-    "array": {
-      "at": "polyfills/array/at.json",
-      "every": "polyfills/array/every.json",
-      "filter": "polyfills/array/filter.json",
-      "find": "polyfills/array/find.json",
-      "findIndex": "polyfills/array/findIndex.json",
-      "flat": "polyfills/array/flat.json",
-      "flatMap": "polyfills/array/flatMap.json",
-      "forEach": "polyfills/array/forEach.json",
-      "includes": "polyfills/array/includes.json",
-      "map": "polyfills/array/map.json",
-      "reduce": "polyfills/array/reduce.json",
-      "some": "polyfills/array/some.json"
-    },
-    "functions": {
-      "apply": "polyfills/functions/apply.json",
-      "bind": "polyfills/functions/bind.json",
-      "call": "polyfills/functions/call.json"
-    },
-    "object": {
-      "assign": "polyfills/object/assign.json",
-      "entries": "polyfills/object/entries.json",
-      "freeze": "polyfills/object/freeze.json",
-      "fromEntries": "polyfills/object/fromEntries.json",
-      "is": "polyfills/object/is.json",
-      "keys": "polyfills/object/keys.json",
-      "values": "polyfills/object/values.json"
-    },
-    "webApis": {
-      "ResizeObserver": "polyfills/webApis/ResizeObserver.json",
-      "fetch": "polyfills/webApis/fetch.json",
-      "intersectionObserver": "polyfills/webApis/intersectionObserver.json"
-    }
+[
+  {
+    "title": "Array - Polyfills",
+    "isHeader": true
   },
-  "promises": {
-    "executeNPromise": "promises/executeNPromise.json",
-    "promiseAllImplementation": "promises/promiseAllImplementation.json",
-    "promiseAllSettledImplementation": "promises/promiseAllSettledImplementation.json",
-    "promiseAnyImplementation": "promises/promiseAnyImplementation.json",
-    "promiseFinallyImplementation": "promises/promiseFinallyImplementation.json",
-    "promiseRaceImplementation": "promises/promiseRaceImplementation.json",
-    "retryablePromiseImplementation": "promises/retryablePromiseImplementation.json"
+  {
+    "title": "at",
+    "path": "/polyfills/array/at"
   },
-  "sidebarIndex": "sidebarIndex.json"
-}
+  {
+    "title": "every",
+    "path": "/polyfills/array/every"
+  },
+  {
+    "title": "filter",
+    "path": "/polyfills/array/filter"
+  },
+  {
+    "title": "find",
+    "path": "/polyfills/array/find"
+  },
+  {
+    "title": "findIndex",
+    "path": "/polyfills/array/findIndex"
+  },
+  {
+    "title": "flat",
+    "path": "/polyfills/array/flat"
+  },
+  {
+    "title": "flatMap",
+    "path": "/polyfills/array/flatMap"
+  },
+  {
+    "title": "forEach",
+    "path": "/polyfills/array/forEach"
+  },
+  {
+    "title": "includes",
+    "path": "/polyfills/array/includes"
+  },
+  {
+    "title": "map",
+    "path": "/polyfills/array/map"
+  },
+  {
+    "title": "reduce",
+    "path": "/polyfills/array/reduce"
+  },
+  {
+    "title": "some",
+    "path": "/polyfills/array/some"
+  },
+  {
+    "title": "Functions - Polyfills",
+    "isHeader": true
+  },
+  {
+    "title": "apply",
+    "path": "/polyfills/functions/apply"
+  },
+  {
+    "title": "bind",
+    "path": "/polyfills/functions/bind"
+  },
+  {
+    "title": "call",
+    "path": "/polyfills/functions/call"
+  },
+  {
+    "title": "Object - Polyfills",
+    "isHeader": true
+  },
+  {
+    "title": "assign",
+    "path": "/polyfills/object/assign"
+  },
+  {
+    "title": "entries",
+    "path": "/polyfills/object/entries"
+  },
+  {
+    "title": "freeze",
+    "path": "/polyfills/object/freeze"
+  },
+  {
+    "title": "fromEntries",
+    "path": "/polyfills/object/fromEntries"
+  },
+  {
+    "title": "is",
+    "path": "/polyfills/object/is"
+  },
+  {
+    "title": "keys",
+    "path": "/polyfills/object/keys"
+  },
+  {
+    "title": "values",
+    "path": "/polyfills/object/values"
+  },
+  {
+    "title": "WebApis - Polyfills",
+    "isHeader": true
+  },
+  {
+    "title": "ResizeObserver",
+    "path": "/polyfills/webApis/ResizeObserver"
+  },
+  {
+    "title": "fetch",
+    "path": "/polyfills/webApis/fetch"
+  },
+  {
+    "title": "intersectionObserver",
+    "path": "/polyfills/webApis/intersectionObserver"
+  }
+]

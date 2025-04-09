@@ -19,11 +19,11 @@ import React, { Ref, useRef } from "react";
 
 interface IProps {
   children: React.ReactNode;
-  isScrollable?: boolean;
+  setSelectedPath:React.Dispatch<React.SetStateAction<string | null>>
 }
 
 const DrawerWrapper = (props: IProps) => {
-  const { children, isScrollable } = props;
+  const { children,setSelectedPath } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const borderColor = useColorModeValue("gray.200", "gray.700");
   const navHeaderRef = useRef<HTMLDivElement | null>(null);
@@ -40,7 +40,7 @@ const DrawerWrapper = (props: IProps) => {
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">Navigation</DrawerHeader>
           <DrawerBody>
-            <NavContent headerRef={navHeaderRef} />
+            <NavContent headerRef={navHeaderRef} setSelectedPath={setSelectedPath} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
@@ -66,7 +66,7 @@ const DrawerWrapper = (props: IProps) => {
             Interview Preparation Hub
           </Text>
         </Box>
-        <NavContent headerRef={navHeaderRef}/>
+        <NavContent headerRef={navHeaderRef} setSelectedPath={setSelectedPath} />
       </Box>
 
       {/* Main Content Section */}
