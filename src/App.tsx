@@ -7,7 +7,7 @@ import ChallengeDetails from "./componentsInternal/ChallengeDetails";
 import Implementation from "./componentsInternal/Implementation";
 import Explanation from "./componentsInternal/Explanation";
 import BenchmarkCard from "./componentsInternal/Benchmarks";
-import arrayFlatteningJson from "./components/jsQuestion/arrayFlatteningJson";
+import arrayFlatteningJson from "../public/jsQuestions/arrayFlatteningJson";
 
 function App() {
   const landingRef = useRef<HTMLDivElement | null>(null);

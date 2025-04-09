@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import NavContent from "./NavContent";
-import React from "react";
+import React, { Ref, useRef } from "react";
 
 interface IProps {
   children: React.ReactNode;
@@ -26,7 +26,7 @@ const DrawerWrapper = (props: IProps) => {
   const { children, isScrollable } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const borderColor = useColorModeValue("gray.200", "gray.700");
-  console.log({ isScrollable });
+  const navHeaderRef = useRef<HTMLDivElement | null>(null);
   return (
     <Flex
       bg="gray.50"
@@ -40,7 +40,7 @@ const DrawerWrapper = (props: IProps) => {
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">Navigation</DrawerHeader>
           <DrawerBody>
-            <NavContent />
+            <NavContent headerRef={navHeaderRef} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
@@ -58,7 +58,7 @@ const DrawerWrapper = (props: IProps) => {
         minHeight="100vh"
         overflow="auto"
       >
-        <Box p={4} marginTop={"32px"}>
+        <Box p={4} marginTop={"32px"} ref={navHeaderRef}>
           <Heading size="md" mb={2}>
             React Machine Coding
           </Heading>
@@ -66,7 +66,7 @@ const DrawerWrapper = (props: IProps) => {
             Interview Preparation Hub
           </Text>
         </Box>
-        <NavContent />
+        <NavContent headerRef={navHeaderRef}/>
       </Box>
 
       {/* Main Content Section */}

@@ -1,0 +1,47 @@
+{
+  "polyfills": {
+    "array": {
+      "at": "polyfills/array/at.json",
+      "every": "polyfills/array/every.json",
+      "filter": "polyfills/array/filter.json",
+      "find": "polyfills/array/find.json",
+      "findIndex": "polyfills/array/findIndex.json",
+      "flat": "polyfills/array/flat.json",
+      "flatMap": "polyfills/array/flatMap.json",
+      "forEach": "polyfills/array/forEach.json",
+      "includes": "polyfills/array/includes.json",
+      "map": "polyfills/array/map.json",
+      "reduce": "polyfills/array/reduce.json",
+      "some": "polyfills/array/some.json"
+    },
+    "functions": {
+      "apply": "polyfills/functions/apply.json",
+      "bind": "polyfills/functions/bind.json",
+      "call": "polyfills/functions/call.json"
+    },
+    "object": {
+      "assign": "polyfills/object/assign.json",
+      "entries": "polyfills/object/entries.json",
+      "freeze": "polyfills/object/freeze.json",
+      "fromEntries": "polyfills/object/fromEntries.json",
+      "is": "polyfills/object/is.json",
+      "keys": "polyfills/object/keys.json",
+      "values": "polyfills/object/values.json"
+    },
+    "webApis": {
+      "ResizeObserver": "polyfills/webApis/ResizeObserver.json",
+      "fetch": "polyfills/webApis/fetch.json",
+      "intersectionObserver": "polyfills/webApis/intersectionObserver.json"
+    }
+  },
+  "promises": {
+    "executeNPromise": "promises/executeNPromise.json",
+    "promiseAllImplementation": "promises/promiseAllImplementation.json",
+    "promiseAllSettledImplementation": "promises/promiseAllSettledImplementation.json",
+    "promiseAnyImplementation": "promises/promiseAnyImplementation.json",
+    "promiseFinallyImplementation": "promises/promiseFinallyImplementation.json",
+    "promiseRaceImplementation": "promises/promiseRaceImplementation.json",
+    "retryablePromiseImplementation": "promises/retryablePromiseImplementation.json"
+  },
+  "sidebarIndex": "sidebarIndex.json"
+}
