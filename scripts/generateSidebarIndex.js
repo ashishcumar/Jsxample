@@ -10,11 +10,6 @@ const baseDir = path.join(__dirname, "../public/jsonStore");
 
 const entries = [];
 
-function toTitleCase(str) {
-  return str
-    .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-}
 
 function formatTitleFromFile(fileName) {
   let name = fileName.replace(".json", "");

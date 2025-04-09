@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useMemo, useEffect } from "react";
 import useSwrHook from "./useSwrHook";
+import useSwrMutationHook from "./useSwrHook";
 
 interface NavItem {
   title: string;
@@ -34,10 +35,7 @@ const NavContent = (props: IProps) => {
   const { headerRef, setSelectedPath } = props;
   const [searchQuery, setSearchQuery] = useState("");
   const [navItemsList, setNavItemsList] = useState<NavItem[]>([]);
-
-  const { data, isLoading, error } = useSwrHook(
-    "https://raw.githubusercontent.com/ashishcumar/Jsxample/dev/public/jsonStore/sidebarIndex.json"
-  );
+  const { triggerFetch, data, error, isLoading } = useSwrMutationHook();
 
   const filteredItems = useMemo(() => {
     if (!searchQuery) return navItemsList;
@@ -57,9 +55,15 @@ const NavContent = (props: IProps) => {
   }, [navItemsList, searchQuery]);
 
   useEffect(() => {
-    if (!navItemsList.length && data != undefined) {
-      console.log({ data });
-      setNavItemsList(data.slice(2));
+    if (!navItemsList.length) {
+      if (data == undefined) {
+        triggerFetch(
+          "https://raw.githubusercontent.com/ashishcumar/Jsxample/dev/public/jsonStore/sidebarIndex.json"
+        );
+      } else {
+        console.log("data -->",data)
+        setNavItemsList(data.slice(2));
+      }
     }
   }, [data]);
 

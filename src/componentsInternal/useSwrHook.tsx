@@ -1,15 +1,26 @@
-import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-const useSwrHook = (url?: string) => {
-  const shouldFetch = !!url;
-
-  const { data, error, isLoading } = useSWR(shouldFetch ? url : null, fetcher, {
-    revalidateOnFocus: false,
-  });
-
-  return { data, error, isLoading };
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch");
+  return res.json();
 };
 
-export default useSwrHook;
+const useSwrMutationHook = () => {
+  const { trigger, data, error, isMutating } = useSWRMutation(
+    "dynamic-key", // required key, not used for actual fetch here
+    (_, { arg }: { arg: string }) => fetcher(arg),
+    {
+      revalidate: false, // no revalidation unless you want it
+    }
+  );
+
+  return {
+    triggerFetch: trigger, // use this to manually trigger with a URL
+    data,
+    error,
+    isLoading: isMutating,
+  };
+};
+
+export default useSwrMutationHook;

@@ -22,6 +22,6 @@
     ],
     "tags": ["array", "polyfill", "test"],
     "difficulty": "medium",
-    "type": "implementation"
+    "type": "javascript"
   }
   

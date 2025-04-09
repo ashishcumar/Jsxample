@@ -9,7 +9,7 @@ interface IProps {
 
 function Implementation(props: IProps) {
   const { question } = props;
-
+  console.log("qurstion ->",question)
   return (
     <Box
       mb={8}

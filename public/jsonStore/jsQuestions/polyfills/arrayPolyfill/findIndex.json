@@ -22,5 +22,5 @@
     ],
     "tags": ["array", "polyfill", "search"],
     "difficulty": "medium",
-    "type": "implementation"
+    "type": "javascript"
   }

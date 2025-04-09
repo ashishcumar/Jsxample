@@ -26,5 +26,5 @@
   ],
   "tags": ["array", "polyfill", "iteration"],
   "difficulty": "medium",
-  "type": "implementation"
+  "type": "javascript"
 }
