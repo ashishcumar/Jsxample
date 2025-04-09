@@ -21,6 +21,6 @@
     ],
     "tags": ["object", "polyfill", "transform"],
     "difficulty": "medium",
-    "type": "method-polyfill"
+    "type": "javascript"
   }
   

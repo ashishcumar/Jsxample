@@ -20,5 +20,5 @@
     ],
     "tags": ["object", "polyfill", "enumeration"],
     "difficulty": "medium",
-    "type": "method-polyfill"
+    "type": "javascript"
   }
