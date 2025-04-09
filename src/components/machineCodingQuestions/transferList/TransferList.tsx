@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { css } from "@emotion/react";
 
 // Interface for each list item
 interface ListItem {
@@ -7,13 +6,6 @@ interface ListItem {
   name: string;
   isSelected: boolean;
 }
-
-const rawStyle = css`
-  all: unset;
-  font-family: initial;
-  color: initial;
-  background: none;
-`;
 
 const TransferList = () => {
   const [leftList, setLeftList] = useState<ListItem[]>([

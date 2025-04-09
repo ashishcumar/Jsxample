@@ -2,7 +2,6 @@ import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
-  IconButton,
   Skeleton,
   SkeletonText,
   useClipboard,
