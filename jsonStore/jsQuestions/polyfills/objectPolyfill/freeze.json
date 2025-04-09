@@ -1,0 +1,28 @@
+{
+  "title": "Object.freeze() Polyfill",
+  "category": ["JavaScript", "Polyfill", "Object Methods"],
+  "description":
+    "Implement a polyfill for Object.freeze() which freezes an object making it immutable.",
+  "requirements": [
+    "Should prevent new properties being added",
+    "Should prevent existing properties being removed",
+    "Should prevent existing properties being changed",
+    "Should recursively freeze nested objects"
+  ],
+  "code": {
+    "basic":
+      "Object.myFreeze = function(obj) {\n  Object.preventExtensions(obj);\n  \n  for (const key in obj) {\n    if (obj.hasOwnProperty(key)) {\n      Object.defineProperty(obj, key, {\n        writable: false,\n        configurable: false\n      });\n    }\n  }\n  \n  return obj;\n};",
+    "recursive":
+      "Object.myFreeze = function(obj) {\n  Object.preventExtensions(obj);\n  \n  for (const key in obj) {\n    if (obj.hasOwnProperty(key)) {\n      Object.defineProperty(obj, key, {\n        writable: false,\n        configurable: false\n      });\n      \n      if (typeof obj[key] === 'object' && obj[key] !== null) {\n        Object.myFreeze(obj[key]);\n      }\n    }\n  }\n  \n  return obj;\n};"
+  },
+  "explanation": [
+    "Makes object immutable by preventing extensions",
+    "Makes all properties non-writable and non-configurable",
+    "Recursive version also freezes nested objects",
+    "Returns the now-frozen object",
+    "Note: True freezing requires ES5 features"
+  ],
+  "tags": ["object", "polyfill", "immutable"],
+  "difficulty": "hard",
+  "type": "javascript"
+}

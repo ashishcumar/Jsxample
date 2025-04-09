@@ -1,0 +1,28 @@
+{
+  "title": "Retryable Promise Implementation",
+  "category": ["JavaScript", "Asynchronous Programming"],
+  "description": "Implementation that automatically retries a failing promise operation",
+  "requirements": [
+    "Retry the operation up to specified maximum attempts",
+    "Exponential backoff between retries",
+    "Resolve with first successful attempt",
+    "Reject if all attempts fail",
+    "Cancel retries if non-retryable error occurs"
+  ],
+  "code": {
+    "Custom Implementation": "function retryablePromise(fn, options = {}) {\n  const { retries = 3, delay = 1000 } = options;\n  \n  return new Promise((resolve, reject) => {\n    const attempt = (remainingAttempts) => {\n      fn()\n        .then(resolve)\n        .catch(error => {\n          if (remainingAttempts <= 1) {\n            return reject(error);\n          }\n          \n          setTimeout(() => {\n            attempt(remainingAttempts - 1);\n          }, delay * (options.exponential ? \n             Math.pow(2, options.retries - remainingAttempts) : 1));\n        });\n    };\n    \n    attempt(retries);\n  });\n}",
+    "Usage Example": "const fetchWithRetry = () => retryablePromise(\n  () => fetch('https://api.example.com/data'),\n  { retries: 3, delay: 1000, exponential: true }\n);\n\nfetchWithRetry()\n  .then(handleSuccess)\n  .catch(handleFinalError);",
+    "Test Case Example": "const flakyOperation = () => new Promise((res, rej) => {\n  Math.random() > 0.3 ? res('Success') : rej('Temporary failure');\n});\n\nretryablePromise(flakyOperation, { retries: 3 })\n  .then(console.log)\n  .catch(console.error);"
+  },
+  "explanation": [
+    "### Key Features:\n1. **Configurable Retries**: Set maximum attempt count\n2. **Backoff Strategies**: Linear or exponential delay\n3. **Final Rejection**: Rejects only after all attempts fail",
+    "### Use Cases:\n- Network requests with temporary failures\n- Unreliable third-party APIs\n- Operations requiring eventual consistency"
+  ],
+  "tags": ["promises", "retry logic", "error handling", "networking"],
+  "difficulty": "Advanced",
+  "benchmarks": {
+    "Linear Backoff": "Fixed delay between attempts",
+    "Exponential Backoff": "Growing delay between attempts"
+  },
+  "type": "javascript"
+}

@@ -1,0 +1,25 @@
+{
+    "title": "IntersectionObserver Polyfill",
+    "category": ["JavaScript", "Polyfill", "Web API"],
+    "description": "Implement a basic polyfill for IntersectionObserver API which detects when elements enter or exit the viewport.",
+    "requirements": [
+      "Should detect element visibility changes",
+      "Should support thresholds",
+      "Should support root margin",
+      "Should be performant"
+    ],
+    "code": {
+      "basic": "function IntersectionObserverPolyfill(callback, options) {\n  this.callback = callback;\n  this.thresholds = options.threshold || [0];\n  this.root = options.root || null;\n  this.rootMargin = options.rootMargin || '0px';\n  this.observedElements = [];\n  \n  this.checkIntersections = () => {\n    this.observedElements.forEach(entry => {\n      const rect = entry.target.getBoundingClientRect();\n      const isIntersecting = (\n        rect.bottom > 0 &&\n        rect.right > 0 &&\n        rect.top < window.innerHeight &&\n        rect.left < window.innerWidth\n      );\n      \n      if (isIntersecting !== entry.isIntersecting) {\n        entry.isIntersecting = isIntersecting;\n        entry.time = Date.now();\n        this.callback([entry]);\n      }\n    });\n  };\n  \n  window.addEventListener('scroll', this.checkIntersections);\n  window.addEventListener('resize', this.checkIntersections);\n}\n\nIntersectionObserverPolyfill.prototype.observe = function(target) {\n  this.observedElements.push({\n    target,\n    isIntersecting: false,\n    time: 0\n  });\n  this.checkIntersections();\n};\n\nIntersectionObserverPolyfill.prototype.unobserve = function(target) {\n  this.observedElements = this.observedElements.filter(\n    entry => entry.target !== target\n  );\n};\n\nIntersectionObserverPolyfill.prototype.disconnect = function() {\n  window.removeEventListener('scroll', this.checkIntersections);\n  window.removeEventListener('resize', this.checkIntersections);\n  this.observedElements = [];\n};\n\nwindow.IntersectionObserver = window.IntersectionObserver || IntersectionObserverPolyfill;"
+    },
+    "explanation": [
+      "Basic implementation of IntersectionObserver API",
+      "Tracks elements added via observe()",
+      "Checks intersection on scroll/resize events",
+      "Uses getBoundingClientRect() for visibility detection",
+      "Calls callback when intersection changes",
+      "Note: This is a simplified version - full polyfill would handle more edge cases"
+    ],
+    "tags": ["polyfill", "web-api", "viewport"],
+    "difficulty": "hard",
+    "type": "javascript"
+  }

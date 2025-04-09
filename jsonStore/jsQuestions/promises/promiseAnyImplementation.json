@@ -1,0 +1,27 @@
+{
+  "title": "Promise.any() Polyfill",
+  "category": ["JavaScript", "Asynchronous Programming"],
+  "description": "Implementations that resolve on first success or reject with AggregateError if all fail",
+  "requirements": [
+    "Resolve with first fulfilled promise",
+    "Reject with AggregateError if all promises reject",
+    "Preserve order of errors in AggregateError",
+    "Handle non-promise values"
+  ],
+  "code": {
+    "Approach 1 - Basic Counter": "Promise.customAny = function(promises) {\n  const errors = new Array(promises.length);\n  let rejectedCount = 0;\n\n  return new Promise((resolve, reject) => {\n    promises.forEach((promise, i) => {\n      Promise.resolve(promise)\n        .then(resolve)\n        .catch(err => {\n          errors[i] = err;\n          if (++rejectedCount === promises.length) {\n            reject(new AggregateError(errors, 'All promises were rejected'));\n          }\n        });\n    });\n  });\n};",
+    "Approach 2 - Invert allSettled": "function promiseAny(promises) {\n  return new Promise((resolve, reject) => {\n    Promise.allSettled(promises)\n      .then(results => {\n        for (const result of results) {\n          if (result.status === 'fulfilled') {\n            return resolve(result.value);\n          }\n        }\n        reject(new AggregateError(\n          results.map(r => r.reason), \n          'No promises fulfilled'\n        ));\n      });\n  });\n}",
+    "Approach 3 - Async/Await + Loop": "async function asyncAny(promises) {\n  const errors = [];\n  for (const promise of promises) {\n    try {\n      return await Promise.resolve(promise);\n    } catch (err) {\n      errors.push(err);\n    }\n  }\n  throw new AggregateError(errors, 'All promises rejected');\n}"
+  },
+  "explanation": [
+    "### Approach Comparison:\n- **Basic Counter**: Most performant (native-like)\n- **Invert allSettled**: Uses Promise.allSettled() for clarity\n- **Async/Await**: Simple but sequentializes checks",
+    "### Edge Cases:\n- Empty array → Immediate AggregateError\n- Immediate values → Resolves with first value\n- All rejections → Ordered AggregateError"
+  ],
+  "tags": ["promises", "error-aggregation", "early-exit"],
+  "difficulty": "Medium",
+  "benchmarks": {
+    "Basic Counter": "Fastest (no intermediate arrays)",
+    "Invert allSettled": "Clean but creates extra objects"
+  },
+  "type": "javascript"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Array.prototype.reduce() Polyfill",
+  "description": "Implement a polyfill for the Array.prototype.reduce() method which executes a reducer function on each element of the array, resulting in a single output value.",
+  "category": ["JavaScript", "Polyfill"],
+  "requirements": [
+    "Should work on all arrays",
+    "Should accept a reducer function and optional initial value",
+    "Should pass accumulator, current value, index, and array to reducer",
+    "Should return the accumulated result"
+  ],
+  "code": {
+    "basic": "Array.prototype.myReduce = function(callback, initialValue) {\n  let accumulator = initialValue;\n  for (let i = 0; i < this.length; i++) {\n    if (accumulator === undefined) {\n      accumulator = this[i];\n    } else {\n      accumulator = callback(accumulator, this[i], i, this);\n    }\n  }\n  return accumulator;\n};",
+    "edge-cases": "Array.prototype.myReduce = function(callback, initialValue) {\n  if (this == null) throw new TypeError('Array.prototype.reduce called on null or undefined');\n  if (typeof callback !== 'function') throw new TypeError(callback + ' is not a function');\n  \n  const array = Object(this);\n  const length = array.length >>> 0;\n  \n  let accumulator, i = 0;\n  \n  if (arguments.length >= 2) {\n    accumulator = initialValue;\n  } else {\n    if (length === 0) throw new TypeError('Reduce of empty array with no initial value');\n    accumulator = array[i++];\n  }\n  \n  while (i < length) {\n    if (i in array) {\n      accumulator = callback(accumulator, array[i], i, array);\n    }\n    i++;\n  }\n  \n  return accumulator;\n};"
+  },
+  "explanation": [
+    "The reduce method executes a reducer function on each element of the array, resulting in a single output value.",
+    "We implement this by maintaining an accumulator that is either initialized with the provided initialValue or the first array element.",
+    "For each subsequent element, we call the reducer with the accumulator, current value, index, and array.",
+    "The final accumulator value is returned after processing all elements.",
+    "Special care is taken for edge cases like empty arrays with no initial value, sparse arrays, and type checking."
+  ],
+  "tags": ["array", "polyfill", "functional"],
+  "difficulty": "hard",
+  "type": "javascript"
+}

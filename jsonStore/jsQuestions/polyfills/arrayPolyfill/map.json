@@ -1,0 +1,30 @@
+{
+  "title": "Array.prototype.map() Polyfill",
+  "category": ["JavaScript", "Polyfill"],
+  "description":
+    "Implement a polyfill for the Array.prototype.map() method which creates a new array populated with the results of calling a provided function on every element in the calling array.",
+  "requirements": [
+    "Should work on all arrays",
+    "Should accept a callback function",
+    "Should pass current element, index, and array to callback",
+    "Should return a new array without modifying original"
+  ],
+  "code": {
+    "basic":
+      "Array.prototype.myMap = function(callback) {\n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    result.push(callback(this[i], i, this));\n  }\n  return result;\n};",
+    "with-thisArg":
+      "Array.prototype.myMap = function(callback, thisArg) {\n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    result.push(callback.call(thisArg, this[i], i, this));\n  }\n  return result;\n};",
+    "edge-cases":
+      "Array.prototype.myMap = function(callback, thisArg) {\n  if (this == null) throw new TypeError('this is null or not defined');\n  if (typeof callback !== 'function') throw new TypeError(callback + ' is not a function');\n  \n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    if (i in this) {\n      result.push(callback.call(thisArg, this[i], i, this));\n    }\n  }\n  return result;\n};"
+  },
+  "explanation": [
+    "The map method creates a new array with the results of calling a provided function on every element.",
+    "We implement this by creating an empty array, then iterating through each element of the original array.",
+    "For each element, we call the callback function with the element, index, and original array.",
+    "The result of the callback is pushed to our new array which is returned at the end.",
+    "We also handle edge cases like null this, non-function callbacks, and sparse arrays."
+  ],
+  "tags": ["array", "polyfill", "functional"],
+  "difficulty": "medium",
+  "type": "javascript"
+}
