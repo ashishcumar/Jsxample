@@ -16,120 +16,120 @@
     "path": "/jsonStore/customHooks/custom"
   },
   {
-    "title": "Array",
+    "title": "ArrayPolyfill",
     "isHeader": true
   },
   {
     "title": "At",
-    "path": "/jsonStore/jsQuestions/polyfills/array/at"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/at"
   },
   {
     "title": "Every",
-    "path": "/jsonStore/jsQuestions/polyfills/array/every"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/every"
   },
   {
     "title": "Filter",
-    "path": "/jsonStore/jsQuestions/polyfills/array/filter"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/filter"
   },
   {
     "title": "Find",
-    "path": "/jsonStore/jsQuestions/polyfills/array/find"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/find"
   },
   {
     "title": "Find Index",
-    "path": "/jsonStore/jsQuestions/polyfills/array/findIndex"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/findIndex"
   },
   {
     "title": "Flat",
-    "path": "/jsonStore/jsQuestions/polyfills/array/flat"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/flat"
   },
   {
     "title": "Flat Map",
-    "path": "/jsonStore/jsQuestions/polyfills/array/flatMap"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/flatMap"
   },
   {
     "title": "For Each",
-    "path": "/jsonStore/jsQuestions/polyfills/array/forEach"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/forEach"
   },
   {
     "title": "Includes",
-    "path": "/jsonStore/jsQuestions/polyfills/array/includes"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/includes"
   },
   {
     "title": "Map",
-    "path": "/jsonStore/jsQuestions/polyfills/array/map"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/map"
   },
   {
     "title": "Reduce",
-    "path": "/jsonStore/jsQuestions/polyfills/array/reduce"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/reduce"
   },
   {
     "title": "Some",
-    "path": "/jsonStore/jsQuestions/polyfills/array/some"
+    "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/some"
   },
   {
-    "title": "Functions",
+    "title": "FunctionsPolyfill",
     "isHeader": true
   },
   {
     "title": "Apply",
-    "path": "/jsonStore/jsQuestions/polyfills/functions/apply"
+    "path": "/jsonStore/jsQuestions/polyfills/functionsPolyfill/apply"
   },
   {
     "title": "Bind",
-    "path": "/jsonStore/jsQuestions/polyfills/functions/bind"
+    "path": "/jsonStore/jsQuestions/polyfills/functionsPolyfill/bind"
   },
   {
     "title": "Call",
-    "path": "/jsonStore/jsQuestions/polyfills/functions/call"
+    "path": "/jsonStore/jsQuestions/polyfills/functionsPolyfill/call"
   },
   {
-    "title": "Object",
+    "title": "ObjectPolyfill",
     "isHeader": true
   },
   {
     "title": "Assign",
-    "path": "/jsonStore/jsQuestions/polyfills/object/assign"
+    "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/assign"
   },
   {
     "title": "Entries",
-    "path": "/jsonStore/jsQuestions/polyfills/object/entries"
+    "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/entries"
   },
   {
     "title": "Freeze",
-    "path": "/jsonStore/jsQuestions/polyfills/object/freeze"
+    "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/freeze"
   },
   {
     "title": "From Entries",
-    "path": "/jsonStore/jsQuestions/polyfills/object/fromEntries"
+    "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/fromEntries"
   },
   {
     "title": "Is",
-    "path": "/jsonStore/jsQuestions/polyfills/object/is"
+    "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/is"
   },
   {
     "title": "Keys",
-    "path": "/jsonStore/jsQuestions/polyfills/object/keys"
+    "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/keys"
   },
   {
     "title": "Values",
-    "path": "/jsonStore/jsQuestions/polyfills/object/values"
+    "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/values"
   },
   {
-    "title": "WebApis",
+    "title": "WebApisPolyfill",
     "isHeader": true
   },
   {
     "title": "Resize Observer",
-    "path": "/jsonStore/jsQuestions/polyfills/webApis/ResizeObserver"
+    "path": "/jsonStore/jsQuestions/polyfills/webApisPolyfill/ResizeObserver"
   },
   {
     "title": "Fetch",
-    "path": "/jsonStore/jsQuestions/polyfills/webApis/fetch"
+    "path": "/jsonStore/jsQuestions/polyfills/webApisPolyfill/fetch"
   },
   {
     "title": "Intersection Observer",
-    "path": "/jsonStore/jsQuestions/polyfills/webApis/intersectionObserver"
+    "path": "/jsonStore/jsQuestions/polyfills/webApisPolyfill/intersectionObserver"
   },
   {
     "title": "Promises",

@@ -31,7 +31,7 @@ const NavContent = (props: IProps) => {
   const [navItemsList, setNavItemsList] = useState<NavItem[]>([]);
 
   const { data, isLoading, error } = useSwrHook(
-    "https://raw.githubusercontent.com/ashishcumar/Jsxample/dev/public/jsQuestions/sidebarIndex.json"
+    "https://raw.githubusercontent.com/ashishcumar/Jsxample/dev/public/jsonStore/sidebarIndex.json"
   );
 
   const filteredItems = useMemo(() => {
@@ -52,8 +52,9 @@ const NavContent = (props: IProps) => {
   }, [navItemsList, searchQuery]);
 
   useEffect(() => {
-    if (!navItemsList.length) {
-      setNavItemsList(data);
+    if (!navItemsList.length && data != undefined) {
+      console.log({data})
+      setNavItemsList(data.slice(2));
     }
   }, [data]);
 
