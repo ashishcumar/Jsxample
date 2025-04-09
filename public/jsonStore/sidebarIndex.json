@@ -1,6 +1,6 @@
 [
   {
-    "title": "JsonStore",
+    "title": "Json Store",
     "isHeader": true
   },
   {
@@ -8,7 +8,7 @@
     "path": "/jsonStore/sidebarIndex"
   },
   {
-    "title": "CustomHooks",
+    "title": "Custom Hooks",
     "isHeader": true
   },
   {
@@ -16,7 +16,7 @@
     "path": "/jsonStore/customHooks/custom"
   },
   {
-    "title": "ArrayPolyfill",
+    "title": "Array Polyfill",
     "isHeader": true
   },
   {
@@ -68,7 +68,7 @@
     "path": "/jsonStore/jsQuestions/polyfills/arrayPolyfill/some"
   },
   {
-    "title": "FunctionsPolyfill",
+    "title": "Functions Polyfill",
     "isHeader": true
   },
   {
@@ -84,7 +84,7 @@
     "path": "/jsonStore/jsQuestions/polyfills/functionsPolyfill/call"
   },
   {
-    "title": "ObjectPolyfill",
+    "title": "Object Polyfill",
     "isHeader": true
   },
   {
@@ -116,7 +116,7 @@
     "path": "/jsonStore/jsQuestions/polyfills/objectPolyfill/values"
   },
   {
-    "title": "WebApisPolyfill",
+    "title": "Web Apis Polyfill",
     "isHeader": true
   },
   {

@@ -8,6 +8,11 @@ import {
   Highlight,
   Skeleton,
   SkeletonText,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import { useState, useMemo, useEffect } from "react";
 import useSwrHook from "./useSwrHook";
@@ -53,7 +58,7 @@ const NavContent = (props: IProps) => {
 
   useEffect(() => {
     if (!navItemsList.length && data != undefined) {
-      console.log({data})
+      console.log({ data });
       setNavItemsList(data.slice(2));
     }
   }, [data]);
@@ -203,70 +208,112 @@ const NavContent = (props: IProps) => {
             Failed to load navigation items
           </Box>
         ) : (
-          <List spacing={0}>
-            {filteredItems.map((item, index) => (
-              <ListItem
-                key={index}
-                borderBottomWidth={item.isHeader ? "0px" : "1px"}
-                borderColor="gray.700"
-              >
-                {item.isHeader ? (
-                  <Text
-                    fontWeight="bold"
-                    px={4}
-                    py={3}
-                    fontSize="sm"
-                    color="blue.300"
-                    bg="gray.900"
-                    borderTopWidth={index !== 0 ? "1px" : "0px"}
-                    borderBottomWidth="1px"
-                    borderColor="gray.700"
-                  >
-                    <Highlight
-                      query={searchQuery}
-                      styles={{ bg: "yellow.500", color: "gray.900" }}
-                    >
-                      {item.title}
-                    </Highlight>
-                  </Text>
-                ) : (
-                  <Box
-                    onClick={() => setSelectedPath(item.path as string)}
-                    display="block"
-                    px={4}
-                    py={3}
-                    _hover={{
-                      bg: "gray.700",
-                      textDecoration: "none",
-                      transform: "translateX(2px)",
-                      transition: "transform 0.1s ease",
-                    }}
-                    transition="background 0.2s ease"
-                    cursor="pointer"
-                  >
-                    <Text fontWeight="medium">
-                      <Highlight
-                        query={searchQuery}
-                        styles={{ bg: "yellow.500", color: "gray.900" }}
+          <Accordion allowMultiple defaultIndex={[]} width="100%">
+            {filteredItems.reduce<React.ReactElement[]>(
+              (acc, item, index, array) => {
+                if (item.isHeader) {
+                  // Find all items until the next header
+                  const nextHeaderIndex = array
+                    .slice(index + 1)
+                    .findIndex((i) => i.isHeader);
+                  const subItems =
+                    nextHeaderIndex === -1
+                      ? array.slice(index + 1)
+                      : array.slice(index + 1, index + 1 + nextHeaderIndex);
+
+                  acc.push(
+                    <AccordionItem key={`header-${index}`} border="none">
+                      <AccordionButton
+                        px={4}
+                        py={3}
+                        bg="gray.900"
+                        borderTopWidth={index !== 0 ? "1px" : "0px"}
+                        borderBottomWidth="1px"
+                        borderColor="gray.700"
+                        _hover={{ bg: "gray.800" }}
                       >
-                        {item.title}
-                      </Highlight>
-                    </Text>
-                    {item.subtitle && (
-                      <Text fontSize="sm" color="gray.400" mt={1}>
-                        <Highlight
-                          query={searchQuery}
-                          styles={{ bg: "yellow.500", color: "gray.900" }}
+                        <Box
+                          flex="1"
+                          textAlign="left"
+                          fontWeight="bold"
+                          fontSize="sm"
+                          color="blue.300"
                         >
-                          {item.subtitle}
-                        </Highlight>
-                      </Text>
-                    )}
-                  </Box>
-                )}
-              </ListItem>
-            ))}
-          </List>
+                          <Highlight
+                            query={searchQuery}
+                            styles={{ bg: "yellow.500", color: "gray.900" }}
+                          >
+                            {item.title}
+                          </Highlight>
+                        </Box>
+                        <AccordionIcon color="blue.300" />
+                      </AccordionButton>
+
+                      <AccordionPanel
+                        p={0}
+                        bg="gray.800"
+                        borderBottomWidth="1px"
+                        borderColor="gray.700"
+                      >
+                        <List spacing={0}>
+                          {subItems.map((subItem, subIndex) => (
+                            <ListItem
+                              key={`subitem-${subIndex}`}
+                              borderBottomWidth="1px"
+                              borderColor="gray.700"
+                            >
+                              <Box
+                                onClick={() =>
+                                  setSelectedPath(subItem.path as string)
+                                }
+                                display="block"
+                                px={4}
+                                py={3}
+                                _hover={{
+                                  bg: "gray.700",
+                                  transform: "translateX(2px)",
+                                  transition: "transform 0.1s ease",
+                                }}
+                                transition="background 0.2s ease"
+                                cursor="pointer"
+                              >
+                                <Text fontWeight="medium">
+                                  <Highlight
+                                    query={searchQuery}
+                                    styles={{
+                                      bg: "yellow.500",
+                                      color: "gray.900",
+                                    }}
+                                  >
+                                    {subItem.title}
+                                  </Highlight>
+                                </Text>
+                                {subItem.subtitle && (
+                                  <Text fontSize="sm" color="gray.400" mt={1}>
+                                    <Highlight
+                                      query={searchQuery}
+                                      styles={{
+                                        bg: "yellow.500",
+                                        color: "gray.900",
+                                      }}
+                                    >
+                                      {subItem.subtitle}
+                                    </Highlight>
+                                  </Text>
+                                )}
+                              </Box>
+                            </ListItem>
+                          ))}
+                        </List>
+                      </AccordionPanel>
+                    </AccordionItem>
+                  );
+                }
+                return acc;
+              },
+              []
+            )}
+          </Accordion>
         )}
       </Box>
     </Box>

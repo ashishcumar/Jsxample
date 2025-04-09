@@ -31,7 +31,7 @@ function walk(dir, lastFolder = "") {
 
   if (files.length) {
     entries.push({
-      title: toTitleCase(path.basename(dir)),
+      title: formatTitleFromFile(path.basename(dir)),
       isHeader: true,
     });
 
