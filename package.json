@@ -9,14 +9,14 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "generate:sidebar": "ts-node ./scripts/generateSidebarIndex.js",
-    "push":"npm run generate:sidebar && git add . && git commit -m 'json updates' && git push"
-
+    "push": "npm run generate:sidebar && git add . && git commit -m 'json updates' && git push"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "firebase": "^11.6.0",
     "framer-motion": "^11.11.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
