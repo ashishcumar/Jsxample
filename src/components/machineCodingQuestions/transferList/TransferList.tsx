@@ -1,6 +1,4 @@
-import { Box } from "@chakra-ui/react";
-import React, { useState } from "react";
-/** @jsxImportSource @emotion/react */
+import { useState } from "react";
 import { css } from "@emotion/react";
 
 // Interface for each list item

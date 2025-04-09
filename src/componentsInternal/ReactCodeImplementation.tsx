@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Text, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { transferListJson } from "../components/machineCodingQuestions/transferList/transferListJson";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import CodeBlock from "../components/helper/CodeBlock";

@@ -5,7 +5,6 @@ import {
   Flex,
   Icon,
   Text,
-  Badge,
 } from "@chakra-ui/react";
 import MarkdownRenderer from "./MarkdownRenderer";
 import { FaLightbulb } from "react-icons/fa";

@@ -1,5 +1,4 @@
 import { Box, Heading } from "@chakra-ui/react";
-import React from "react";
 import TransferList from "../components/machineCodingQuestions/transferList/TransferList";
 
 function SolutionPreview() {

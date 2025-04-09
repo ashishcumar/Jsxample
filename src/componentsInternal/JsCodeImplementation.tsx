@@ -1,6 +1,5 @@
-import { Box, Button, Flex, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { transferListJson } from "../components/machineCodingQuestions/transferList/transferListJson";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import CodeBlock from "../components/helper/CodeBlock";
 import { IQuestions } from "../components/helper/commonInterface";

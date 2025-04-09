@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import  { useState } from "react";
 
 interface IProps {
   progress: number;
@@ -10,12 +10,10 @@ interface IProps {
 const ProgressBar = (props: IProps) => {
   const {
     progress = 100,
-    incrementSize = 1,
-    intervalDuration = 20,
     controls = false,
   } = props;
   const [currentProgress, setCurrentProgress] = useState(0);
-  const intervalRef = useRef<number | null>(null);
+
   const [start, setStart] = useState<boolean>(false);
 
   const handleControls = () => {
@@ -27,34 +25,6 @@ const ProgressBar = (props: IProps) => {
     }
   };
 
-  useEffect(() => {
-    if (currentProgress < 0) {
-      setCurrentProgress(0);
-      return;
-    }
-    if (!controls || (controls && start)) {
-      intervalRef.current = setInterval(() => {
-        setCurrentProgress((prev) => {
-          if (prev < progress) {
-            return prev + incrementSize;
-          } else {
-            clearInterval(intervalRef.current as number);
-            intervalRef.current = null;
-            return prev;
-          }
-        });
-      }, intervalDuration);
-    } else if (controls && !start) {
-      clearInterval(intervalRef.current as number);
-      intervalRef.current = null;
-    }
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [progress, start]);
 
   return (
     <div

@@ -1,5 +1,4 @@
 import {
-  Link,
   List,
   ListItem,
   Text,
@@ -15,7 +14,6 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import { useState, useMemo, useEffect } from "react";
-import useSwrHook from "./useSwrHook";
 import useSwrMutationHook from "./useSwrHook";
 
 interface NavItem {

@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import NavContent from "./NavContent";
-import React, { Ref, useRef } from "react";
+import React, {useRef } from "react";
 
 interface IProps {
   children: React.ReactNode;

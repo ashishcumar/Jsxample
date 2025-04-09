@@ -8,10 +8,10 @@ const fetcher = async (url: string) => {
 
 const useSwrMutationHook = () => {
   const { trigger, data, error, isMutating } = useSWRMutation(
-    "dynamic-key", // required key, not used for actual fetch here
+    "dynamic-key", 
     (_, { arg }: { arg: string }) => fetcher(arg),
     {
-      revalidate: false, // no revalidation unless you want it
+      revalidate: true, // no revalidation unless you want it
     }
   );
 
