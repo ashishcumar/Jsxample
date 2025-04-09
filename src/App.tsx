@@ -7,11 +7,14 @@ import ChallengeDetails from "./componentsInternal/ChallengeDetails";
 import Implementation from "./componentsInternal/Implementation";
 import Explanation from "./componentsInternal/Explanation";
 import BenchmarkCard from "./componentsInternal/Benchmarks";
-import arrayFlatteningJson from "../public/jsQuestions/arrayFlatteningJson";
+import arrayFlatteningJson from "../public/jsonStore/jsQuestions/arrayFlatteningJson";
+import useSwrHook from "./componentsInternal/useSwrHook";
 
 function App() {
   const landingRef = useRef<HTMLDivElement | null>(null);
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
+  // const { data, isLoading, error } = useSwrHook(selectedPath ?? '')
+  
 
   return (
     <Grid scrollSnapType="y mandatory">

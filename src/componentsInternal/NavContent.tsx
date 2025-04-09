@@ -28,51 +28,12 @@ interface IProps {
 const NavContent = (props: IProps) => {
   const { headerRef, setSelectedPath } = props;
   const [searchQuery, setSearchQuery] = useState("");
-  const [navItemsList,setNavItemsList] = useState<NavItem[]>([])
+  const [navItemsList, setNavItemsList] = useState<NavItem[]>([]);
 
   const { data, isLoading, error } = useSwrHook(
     "https://raw.githubusercontent.com/ashishcumar/Jsxample/dev/public/jsQuestions/sidebarIndex.json"
   );
-  // const navItems: NavItem[] = useMemo(
-  //   () => [
-  //     // Polyfills - Array
-  //     { title: "Array Polyfills", isHeader: true },
-  //     { title: "Array.at()", path: "/polyfills/array/at" },
-  //     { title: "Array.filter()", path: "/polyfills/array/filter" },
-  //     { title: "Array.map()", path: "/polyfills/array/map" },
-  //     { title: "Array.reduce()", path: "/polyfills/array/reduce" },
 
-  //     // Polyfills - Function
-  //     { title: "Function Polyfills", isHeader: true },
-  //     { title: "Function.apply()", path: "/polyfills/function/apply" },
-  //     { title: "Function.bind()", path: "/polyfills/function/bind" },
-  //     { title: "Function.call()", path: "/polyfills/function/call" },
-
-  //     // Polyfills - Object
-  //     { title: "Object Polyfills", isHeader: true },
-  //     { title: "Object.assign()", path: "/polyfills/object/assign" },
-  //     { title: "Object.entries()", path: "/polyfills/object/entries" },
-  //     { title: "Object.freeze()", path: "/polyfills/object/freeze" },
-
-  //     // Web APIs
-  //     { title: "Web API Polyfills", isHeader: true },
-  //     { title: "fetch()", path: "/polyfills/web-api/fetch" },
-  //     {
-  //       title: "IntersectionObserver",
-  //       path: "/polyfills/web-api/intersection-observer",
-  //     },
-  //     { title: "ResizeObserver", path: "/polyfills/web-api/resize-observer" },
-
-  //     // Promises
-  //     { title: "Promise Polyfills", isHeader: true },
-  //     { title: "Promise.all()", path: "/polyfills/promise/all" },
-  //     { title: "Promise.allSettled()", path: "/polyfills/promise/all-settled" },
-  //     { title: "Promise.any()", path: "/polyfills/promise/any" },
-  //     { title: "Promise.race()", path: "/polyfills/promise/race" },
-  //   ],
-  //   []
-  // );
-  
   const filteredItems = useMemo(() => {
     if (!searchQuery) return navItemsList;
 
@@ -90,10 +51,11 @@ const NavContent = (props: IProps) => {
     });
   }, [navItemsList, searchQuery]);
 
-useEffect(()=>{
-
-},[data])
-
+  useEffect(() => {
+    if (!navItemsList.length) {
+      setNavItemsList(data);
+    }
+  }, [data]);
 
   return (
     // <Box

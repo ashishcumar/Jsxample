@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "public/jsQuestions"]
+  "include": ["src", "public/jsonStore/jsQuestions"]
 }

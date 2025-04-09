@@ -1,51 +1,60 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const baseDir = path.join(__dirname, "../public/jsQuestions");
-const outputFile = path.join(baseDir, "sidebarIndex.json");
+// Base directory where your JSON files are
+const baseDir = path.join(__dirname, "../public/jsonStore");
 
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+const entries = [];
+
+function toTitleCase(str) {
+  return str
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-function generateSidebarArray(dir) {
-  const sidebarArray = [];
+function formatTitleFromFile(fileName) {
+  let name = fileName.replace(".json", "");
+  return name
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // camelCase to space
+    .replace(/([A-Z]+)/g, (m) => m.charAt(0) + m.slice(1).toLowerCase()) // uppercase words to Capitalized
+    .replace(/^./, (c) => c.toUpperCase()); // capitalize first letter
+}
 
-  const categories = fs.readdirSync(dir, { withFileTypes: true }).filter(d => d.isDirectory());
+function walk(dir, lastFolder = "") {
+  const dirents = fs.readdirSync(dir, { withFileTypes: true });
+  const files = dirents.filter((d) => d.isFile() && d.name.endsWith(".json"));
+  const folders = dirents.filter((d) => d.isDirectory());
 
-  for (const category of categories) {
-    const categoryPath = path.join(dir, category.name);
-    const subcategories = fs.readdirSync(categoryPath, { withFileTypes: true }).filter(d => d.isDirectory());
+  if (files.length) {
+    entries.push({
+      title: toTitleCase(path.basename(dir)),
+      isHeader: true,
+    });
 
-    for (const subcategory of subcategories) {
-      const subcategoryPath = path.join(categoryPath, subcategory.name);
-
-      // Header for this section
-      sidebarArray.push({
-        title: `${capitalize(subcategory.name)} - ${capitalize(category.name)}`,
-        isHeader: true
+    for (const file of files) {
+      const fullPath = path.join(dir, file.name);
+      const relativePath = path.relative(baseDir, fullPath).replace(/\\/g, "/");
+      const title = formatTitleFromFile(file.name);
+      entries.push({
+        title,
+        path: `/jsonStore/${relativePath.replace(".json", "")}`,
       });
-
-      const files = fs.readdirSync(subcategoryPath, { withFileTypes: true }).filter(f => f.isFile() && f.name.endsWith(".json"));
-
-      for (const file of files) {
-        const name = file.name.replace(".json", "");
-        sidebarArray.push({
-          title: name,
-          path: `/${category.name}/${subcategory.name}/${name}`
-        });
-      }
     }
   }
 
-  return sidebarArray;
+  for (const folder of folders) {
+    walk(path.join(dir, folder.name), folder.name);
+  }
 }
 
-const sidebarData = generateSidebarArray(baseDir);
+walk(baseDir);
 
-fs.writeFileSync(outputFile, JSON.stringify(sidebarData, null, 2));
-console.log("✅ sidebarIndex.json generated!");
+// Write output
+const outputPath = path.join(baseDir, "sidebarIndex.json");
+fs.writeFileSync(outputPath, JSON.stringify(entries, null, 2));
+
+console.log(`✅ Sidebar index generated at: ${outputPath}`);
